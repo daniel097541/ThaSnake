@@ -17,7 +17,7 @@ public class Server implements iSnake {
 
     public static void main(String[] arg) {
 
-        System.out.println("Soy e servidor!");
+        System.out.println("Soy el servidor!");
 
         players = new ArrayList<Player>();
         try {
@@ -28,7 +28,6 @@ public class Server implements iSnake {
             int clientId = 1;
 
             while(true){
-
                 socket = serverSocket.accept();
                 players.add(new Player(socket,clientId));
                 clientId ++;

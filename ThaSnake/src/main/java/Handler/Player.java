@@ -40,10 +40,11 @@ public class Player extends Handler{
     @Override
     public void run() {
 
-        while(true){
-
-
-
+        String line = read();
+        while(!line.startsWith("FIN")){
+            if(line == null) continue;
+            System.out.println(line);
+            line = read();
         }
 
 

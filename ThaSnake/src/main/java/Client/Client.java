@@ -11,6 +11,7 @@ public class Client implements iSnake {
 
 
     private static ClientHandler clientHandler;
+    private static ClientFrame frame;
 
     public static void main(String[] args) {
 
@@ -22,11 +23,11 @@ public class Client implements iSnake {
     }
 
 
-    public static void login(){
+    private static void login(){
         try {
             Socket socket = new Socket(HOST,PORT);
             clientHandler = new ClientHandler(socket,new DataInputStream(socket.getInputStream()), new DataOutputStream(socket.getOutputStream()));
-
+            frame = new ClientFrame(clientHandler);
         } catch (Exception e) {
             System.out.println("Error: No se ha podido logear en el servidor!");
         }
