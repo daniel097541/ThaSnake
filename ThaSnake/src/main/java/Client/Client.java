@@ -11,14 +11,15 @@ import java.net.Socket;
 public class Client implements iSnake {
 
 
-    private static ClientHandler clientHandler;
+    private static ClientHandler handler;
+    private static ClientFrame frame;
 
     public static void main(String[] args) {
 
 
         //crear aqui el panel del login y sacar la ip de ahi
         login();
-        new ClientFrame(clientHandler);
+        frame = new ClientFrame(handler);
 
 
     }
@@ -27,11 +28,13 @@ public class Client implements iSnake {
     private static void login(){
         try {
             Socket socket = new Socket(HOST,PORT);
-            clientHandler = new ClientHandler(socket,new DataInputStream(socket.getInputStream()), new DataOutputStream(socket.getOutputStream()));
+            handler = new ClientHandler(socket,new DataInputStream(socket.getInputStream()), new DataOutputStream(socket.getOutputStream()));
         } catch (Exception e) {
             System.out.println("Error: No se ha podido logear en el servidor!");
         }
     }
+
+
 
 
 

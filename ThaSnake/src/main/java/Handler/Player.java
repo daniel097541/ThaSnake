@@ -15,6 +15,7 @@ public class Player extends Handler{
     public Player(Socket socket, int id) {
         this.socket = socket;
         this.id = id;
+        this.on = true;
         try {
             this.out = new DataOutputStream(socket.getOutputStream());
             this.in = new DataInputStream(socket.getInputStream());
@@ -41,7 +42,7 @@ public class Player extends Handler{
     public void run() {
 
         String line = read();
-        while(!line.startsWith("FIN")){
+        while(on){
             if(line == null) continue;
             System.out.println(line);
             line = read();

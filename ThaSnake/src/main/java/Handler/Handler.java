@@ -7,11 +7,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import Enum.Header;
+import Server.Server;
 
 public abstract class Handler extends Thread implements iHandler {
 
@@ -25,6 +27,8 @@ public abstract class Handler extends Thread implements iHandler {
     protected DataOutputStream out;
 
     protected DataInputStream in;
+
+    protected boolean on;
 
 
     public int getClientId() {
@@ -60,12 +64,24 @@ public abstract class Handler extends Thread implements iHandler {
         return new Packet(header,args);
     }
 
+    public void stopThread() {
+        this.on = false;
+    }
+
 
     public String read(){
         String line = "";
         try {
             line = in.readUTF();
-        } catch (IOException e) {
+
+
+        } catch (SocketException e) {
+            this.stopThread();
+            this.close();
+            Server.removePlayerFromServer(id);
+            System.out.println("El jugador " + id + " ha cerrado la conexión!");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return line;

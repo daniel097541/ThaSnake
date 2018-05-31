@@ -2,6 +2,7 @@ package Handler;
 
 import Comunication.Packet;
 import Enum.Header;
+import View.ClientFrame;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,6 +18,7 @@ public class ClientHandler extends Handler{
         this.socket = socket;
         this.in = input;
         this.out = output;
+        on = true;
         this.start();
     }
 
@@ -26,7 +28,7 @@ public class ClientHandler extends Handler{
 
         System.out.println("Soy un cliente");
         String line = read();
-        while(true){
+        while(on){
             if(line == null) continue;
             if(!applyChanges(getPacketFromString(line)))
                 break;
@@ -55,4 +57,6 @@ public class ClientHandler extends Handler{
     public int getClientId() {
         return id;
     }
+
+
 }
