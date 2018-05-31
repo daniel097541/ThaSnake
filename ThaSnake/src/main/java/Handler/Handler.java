@@ -16,6 +16,8 @@ import Enum.Header;
 public abstract class Handler extends Thread implements iHandler {
 
 
+
+
     protected Socket socket;
 
     protected int id;

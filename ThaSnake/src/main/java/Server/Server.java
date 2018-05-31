@@ -7,19 +7,20 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class Server implements iSnake {
 
-    private static List<Player> players;
+    private static HashMap<Integer,Player> players;
 
 
     public static void main(String[] arg) {
 
         System.out.println("Soy el servidor!");
 
-        players = new ArrayList<Player>();
+        players = new HashMap<Integer, Player>();
         try {
 
             ServerSocket serverSocket = new ServerSocket(PORT);
@@ -29,7 +30,7 @@ public class Server implements iSnake {
 
             while(true){
                 socket = serverSocket.accept();
-                players.add(new Player(socket,clientId));
+                players.put(clientId,new Player(socket,clientId));
                 clientId ++;
             }
 
@@ -42,6 +43,9 @@ public class Server implements iSnake {
     }
 
 
+    public static void removePlayerFromServer(int id){
+        players.remove(id);
+    }
 
 
 

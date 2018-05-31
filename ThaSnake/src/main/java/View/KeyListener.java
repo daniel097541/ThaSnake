@@ -1,4 +1,4 @@
-package Client;
+package View;
 
 import Comunication.Packet;
 import Enum.Direction;

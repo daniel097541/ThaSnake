@@ -22,8 +22,14 @@ public class Packet {
     public String getCraftedPacket(){
         String crafted = header.toString() + ";";
 
+        int index = 0;
         for(String string: args){
-            crafted = crafted.concat(string) + ";";
+            if(index == args.size()-1){
+                crafted = crafted.concat(string);
+            }
+            else
+                crafted = crafted.concat(string) + ";";
+            index ++;
         }
         return crafted;
     }
