@@ -1,6 +1,7 @@
 package Handler;
 
 import Comunication.Packet;
+import Enum.Direction;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -48,16 +49,29 @@ public class Player extends Handler{
         String line = read();
         while(on){
             if(line == null) continue;
-            System.out.println(line);
+            changeModel(getPacketFromString(line));
             line = read();
         }
-
-
     }
 
     public Snake getSnake() {
         return snake;
     }
+    
+    private void changeModel(Packet packet){
+        
+        switch(packet.getHeader()){
+            
+            case DIR:
+                int id = Integer.parseInt(packet.getArgs().get(0));
+                Direction dir = Direction.valueOf(packet.getArgs().get(1));
+                Server.Server.getObservable().changeDirection(id, dir);
+
+        }
+        
+        
+    }
+    
     
     
 }

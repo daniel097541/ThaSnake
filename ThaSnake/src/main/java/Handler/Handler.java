@@ -1,6 +1,7 @@
 package Handler;
 
 
+import Comunication.MegaPacket;
 import Comunication.Packet;
 import Interface.iHandler;
 
@@ -19,28 +20,15 @@ public abstract class Handler extends Thread implements iHandler {
 
 
 
-    protected Socket socket;
+    Socket socket;
 
-    protected int id;
+    int id;
 
-    protected DataOutputStream out;
+    DataOutputStream out;
 
-    protected DataInputStream in;
+    DataInputStream in;
 
-    protected boolean on;
-
-    protected ObjectOutputStream objectOutputStream;
-
-    protected ObjectInputStream objectInputStream;
-
-
-    public int getClientId() {
-        return id;
-    }
-
-    public void setClientId(int id) {
-        this.id = id;
-    }
+    boolean on;
 
     public void sendPacket(Packet packet) {
 
@@ -67,7 +55,27 @@ public abstract class Handler extends Thread implements iHandler {
         return new Packet(header,args);
     }
 
-    public void stopThread() {
+
+    public MegaPacket getMegaPacketFromString(String stringPacket){
+
+        StringTokenizer tokenizer = new StringTokenizer(stringPacket);
+
+        Header header = Header.valueOf(tokenizer.nextToken(":"));
+
+        List<Packet> packets = new ArrayList<Packet>();
+
+
+        while (tokenizer.hasMoreElements()){
+            Packet packet = getPacketFromString(tokenizer.nextToken(":"));
+            packets.add(packet);
+        }
+
+        return new MegaPacket(header,packets);
+    }
+
+
+
+    private void stopThread() {
         this.on = false;
     }
 
@@ -83,7 +91,7 @@ public abstract class Handler extends Thread implements iHandler {
             this.stopThread();
             this.close();
             Server.removePlayerFromServer(id);
-            System.out.println("El jugador " + id + " ha cerrado la conexión!");
+            System.out.println("El jugador " + id + " ha cerrado la conexion!");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -110,40 +118,6 @@ public abstract class Handler extends Thread implements iHandler {
         }
 
     }
-
-
-
-    // ESCRIBE OBJECTOS AL SOCKET RECEPTOR
-    public void sendObject(Object o){
-        try {
-            objectOutputStream.writeObject(o);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // LEE OBJETOS DEL SOCKET
-    public Object readObject(){
-        try {
-            return objectInputStream.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-
-
-
-
-
-
-
 
 
 

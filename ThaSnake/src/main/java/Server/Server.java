@@ -7,9 +7,7 @@ import Model.Game;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class Server extends Thread implements iSnake {
@@ -66,5 +64,11 @@ public class Server extends Thread implements iSnake {
     public static void sendMessageToPlayer(int id, String message){
         players.get(id).write(message);
     }
+
+    public static ServerObservable getObservable() {
+        return observable;
+    }
+
+    
 
 }

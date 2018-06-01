@@ -1,17 +1,17 @@
 package Client;
 
 
-import View.ClientFrame;
 
+import View.ClientView;
 import java.util.Observer;
 
 public class ClientObservable implements Observer{
 
 
-    private ClientFrame view;
+    private ClientView view;
 
 
-    ClientObservable(ClientFrame view) {
+    ClientObservable(ClientView view) {
         this.view = view;
     }
 

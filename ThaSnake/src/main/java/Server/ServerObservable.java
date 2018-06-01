@@ -2,8 +2,8 @@ package Server;
 
 import Comunication.MegaPacket;
 import Comunication.Packet;
+import Enum.Direction;
 import Enum.Header;
-import Handler.Handler;
 import Model.Game;
 import Model.Snake;
 
@@ -46,6 +46,37 @@ public class ServerObservable extends java.util.Observable{
 
 
 
+    }
+    
+    
+    public void changeDirection(int id, Direction direction){
+        
+       switch(direction){
+           case RIGHT:
+               game.getSnakeById(id).setDown(false);
+               game.getSnakeById(id).setUp(false);
+               game.getSnakeById(id).setRight(true);
+               break;
+               
+           case LEFT:
+               game.getSnakeById(id).setDown(false);
+               game.getSnakeById(id).setUp(false);
+               game.getSnakeById(id).setLeft(true);
+               break;
+           case UP:
+               game.getSnakeById(id).setRight(false);
+               game.getSnakeById(id).setLeft(false);
+               game.getSnakeById(id).setUp(true);
+               break;
+           case DOWN:
+               game.getSnakeById(id).setRight(false);
+               game.getSnakeById(id).setLeft(false);
+               game.getSnakeById(id).setDown(true);
+               
+       }
+        
+        
+        
     }
 
 

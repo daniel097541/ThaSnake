@@ -41,10 +41,10 @@ public class Snake {
     public List<String> getSnakeCrafted(){
         List<String> args = new ArrayList<String>();
         args.add(id + "");
-        args.add(snake.get(0).getX() + "");
-        args.add(snake.get(0).getY() + "");
-        args.add(snake.get(snake.size()-1).getX() + "");
-        args.add(snake.get(snake.size()-1).getY() + "");
+        args.add(this.x + "");
+        args.add(this.y + "");
+        args.add(x - 1 + "");
+        args.add(y-1 + "");
         return args;
     }
 

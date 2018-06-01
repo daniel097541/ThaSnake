@@ -2,34 +2,37 @@ package Client;
 
 import Handler.ClientHandler;
 import Interface.iSnake;
-import View.ClientFrame;
 import View.ClientTable;
+import View.ClientView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.net.Socket;
 
 public class Client implements iSnake {
 
 
     private static ClientHandler handler;
-    private static ClientFrame frame;
+    private static ClientView view;
     private static ClientTable table;
     private static ClientObservable observable;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
 
         //crear aqui el panel del login y sacar la ip de ahi
         login();
-        frame = new ClientFrame(handler);
-        observable = new ClientObservable(frame);
+        view = new ClientView(handler);
+        observable = new ClientObservable(view);
         //table = new ClientTable();
 
     }
 
+    public static void paint(int x, int y, String color){
+        if(view != null)
+            view.paintPoint(x, y, color);
+    }
 
     private static void login(){
         try {

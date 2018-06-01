@@ -5,10 +5,11 @@
  */
 package Model;
 
-import Server.Server;
 
+import Server.Server;
 import java.util.ArrayList;
 import java.util.Random;
+
 
 /**
  *
@@ -43,6 +44,7 @@ public class Game extends Thread{
             //Por cada serpiente registrado, comprobamos si esta vacía, si es así la creamos
             for(Snake snakeP: snakePlayers){  
                 snakeP.addToSnake();
+                snakeP.setRight(true);
             }
             
             //Si no hay ninguna manzana, la creamos
@@ -91,7 +93,7 @@ public class Game extends Thread{
                 }
                 //Ponemos ticks a 0 para que se reinice
                 ticks = 0;
-               //ENVIA EL STATUS DEL JUEGO Server.broadCastGameStatus();
+                Server.broadCastGameStatus();
             }
         }
     }
@@ -101,6 +103,13 @@ public class Game extends Thread{
         while(running){
             tick();
         }
+    }
+    
+    public Snake getSnakeById(int id){
+        for(Snake snake : snakePlayers)
+            if(snake.getId() == id)
+                return snake;
+        return null;
     }
 
     public ArrayList<Snake> getSnakePlayers() {
