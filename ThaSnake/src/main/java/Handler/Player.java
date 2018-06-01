@@ -8,9 +8,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import Enum.Header;
+import Model.Snake;
 
 public class Player extends Handler{
-
+    
+    private Snake snake;
 
     public Player(Socket socket, int id) {
         this.socket = socket;
@@ -25,6 +27,7 @@ public class Player extends Handler{
         }
         sendInitialMessage();
         System.out.println("Se ha registrado en el servidor el cliente con el id: " + id);
+        this.snake = new Snake(id);
         this.start();
 
     }
@@ -50,4 +53,10 @@ public class Player extends Handler{
 
 
     }
+
+    public Snake getSnake() {
+        return snake;
+    }
+    
+    
 }

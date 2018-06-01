@@ -2,6 +2,7 @@ package Server;
 
 import Interface.iSnake;
 import Handler.Player;
+import Model.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,16 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Server implements iSnake {
+public class Server extends Thread implements iSnake {
 
     private static HashMap<Integer,Player> players;
-
+    private static Game game;
 
     public static void main(String[] arg) {
 
         System.out.println("Soy el servidor!");
 
         players = new HashMap<Integer, Player>();
+        game = new Game();                                  //Creamos el juego sin ningún jugador
+        
         try {
 
             ServerSocket serverSocket = new ServerSocket(PORT);
@@ -30,7 +33,9 @@ public class Server implements iSnake {
 
             while(true){
                 socket = serverSocket.accept();
-                players.put(clientId,new Player(socket,clientId));
+                Player p = new Player(socket,clientId);
+                players.put(clientId,p);
+                game.getSnakePlayers().add(p.getSnake());           //Añadimos la nueva serpiente al modelo
                 clientId ++;
             }
 
@@ -42,11 +47,8 @@ public class Server implements iSnake {
 
     }
 
-
     public static void removePlayerFromServer(int id){
         players.remove(id);
     }
-
-
 
 }

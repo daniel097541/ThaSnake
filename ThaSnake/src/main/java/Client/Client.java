@@ -3,6 +3,7 @@ package Client;
 import Handler.ClientHandler;
 import Interface.iSnake;
 import View.ClientFrame;
+import View.ClientTable;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,6 +14,7 @@ public class Client implements iSnake {
 
     private static ClientHandler handler;
     private static ClientFrame frame;
+    private static ClientTable table;
 
     public static void main(String[] args) {
 
@@ -20,7 +22,7 @@ public class Client implements iSnake {
         //crear aqui el panel del login y sacar la ip de ahi
         login();
         frame = new ClientFrame(handler);
-
+        table = new ClientTable();
 
     }
 
