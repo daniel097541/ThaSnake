@@ -25,6 +25,7 @@ public class Player extends Handler{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         sendInitialMessage();
         System.out.println("Se ha registrado en el servidor el cliente con el id: " + id);
         this.snake = new Snake(id);

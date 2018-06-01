@@ -3,9 +3,8 @@ package Handler;
 
 import Comunication.Packet;
 import Interface.iHandler;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
@@ -29,6 +28,10 @@ public abstract class Handler extends Thread implements iHandler {
     protected DataInputStream in;
 
     protected boolean on;
+
+    protected ObjectOutputStream objectOutputStream;
+
+    protected ObjectInputStream objectInputStream;
 
 
     public int getClientId() {
@@ -69,6 +72,7 @@ public abstract class Handler extends Thread implements iHandler {
     }
 
 
+
     public String read(){
         String line = "";
         try {
@@ -105,6 +109,31 @@ public abstract class Handler extends Thread implements iHandler {
             e.printStackTrace();
         }
 
+    }
+
+
+
+    // ESCRIBE OBJECTOS AL SOCKET RECEPTOR
+    public void sendObject(Object o){
+        try {
+            objectOutputStream.writeObject(o);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // LEE OBJETOS DEL SOCKET
+    public Object readObject(){
+        try {
+            return objectInputStream.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 

@@ -6,6 +6,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,6 +36,20 @@ public class Snake {
         b = new BodyPart(x,y);       
         snake.add(b);
     }
+
+
+    public List<String> getSnakeCrafted(){
+        List<String> args = new ArrayList<String>();
+        args.add(id + "");
+        args.add(snake.get(0).getX() + "");
+        args.add(snake.get(0).getY() + "");
+        args.add(snake.get(snake.size()-1).getX() + "");
+        args.add(snake.get(snake.size()-1).getY() + "");
+        return args;
+    }
+
+
+
     
     public void addSize(){
         size++;

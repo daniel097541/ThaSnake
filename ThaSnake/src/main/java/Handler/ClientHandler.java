@@ -2,8 +2,6 @@ package Handler;
 
 import Comunication.Packet;
 import Enum.Header;
-import View.ClientFrame;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;

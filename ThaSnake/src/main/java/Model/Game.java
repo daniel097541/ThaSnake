@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Server.Server;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -34,7 +36,7 @@ public class Game extends Thread{
         start();
     }
     
-    public void tick(){
+    private void tick(){
         if(snakePlayers.isEmpty()){
             //No hacemos nada
         } else{
@@ -89,6 +91,7 @@ public class Game extends Thread{
                 }
                 //Ponemos ticks a 0 para que se reinice
                 ticks = 0;
+               //ENVIA EL STATUS DEL JUEGO Server.broadCastGameStatus();
             }
         }
     }
