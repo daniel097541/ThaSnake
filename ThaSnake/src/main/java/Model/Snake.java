@@ -15,8 +15,7 @@ import java.util.List;
 public class Snake {
     
     private Integer id;
-    
-    private BodyPart b;
+
     private ArrayList<BodyPart> snake;
     
     private Integer points;
@@ -32,8 +31,8 @@ public class Snake {
         this.points = 0;
     }
     
-    public void addToSnake(){
-        b = new BodyPart(x,y);       
+    public void addToSnake(int x, int y){
+        BodyPart b = new BodyPart(x, y);
         snake.add(b);
     }
 
@@ -41,10 +40,35 @@ public class Snake {
     public List<String> getSnakeCrafted(){
         List<String> args = new ArrayList<String>();
         args.add(id + "");
+
+        args.add(snake.get(size-1).getX() + "");
+        args.add(snake.get(size-1).getY() + "");
+
+        args.add(snake.get(0).getX() + "");
+        args.add(snake.get(0).getY() + "");
+
+        /*
         args.add(this.x + "");
         args.add(this.y + "");
-        args.add(x - 1 + "");
-        args.add(y-1 + "");
+        if(down) {
+            args.add(x + "");
+            args.add(y + size + "");
+        }
+        if (up){
+            args.add(x + "");
+            args.add(y - size + "");
+        }
+        if(left){
+            args.add(x + size + "");
+            args.add(y + "");
+        }
+        if (right){
+            args.add(x - size + "");
+            args.add(y + "");
+        }
+        */
+
+
         return args;
     }
 

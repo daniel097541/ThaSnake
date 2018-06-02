@@ -45,7 +45,8 @@ public class ClientHandler extends Handler{
             
             int xPaint = Integer.parseInt(packet.getArgs().get(1));
             int yPaint = Integer.parseInt(packet.getArgs().get(2));
-            
+
+
             int xRemove = Integer.parseInt(packet.getArgs().get(3));
             int yRemove = Integer.parseInt(packet.getArgs().get(4));
             

@@ -35,8 +35,8 @@ public class ClientView extends javax.swing.JFrame {
     
     public void paintPoint(int x, int y, String color){
         if(color.equalsIgnoreCase("RED"))
-            snakePanel[x][y].setBackground(Color.RED);
-        else snakePanel[x][y].setBackground(Color.WHITE);
+            snakePanel[y][x].setBackground(Color.RED);
+        else snakePanel[y][x].setBackground(Color.WHITE);
         scene.add(snakePanel[x][y]);
         repaint();
     }

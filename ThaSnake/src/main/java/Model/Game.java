@@ -43,7 +43,7 @@ public class Game extends Thread{
         } else{
             //Por cada serpiente registrado, comprobamos si esta vacía, si es así la creamos
             for(Snake snakeP: snakePlayers){  
-                snakeP.addToSnake();
+                snakeP.addToSnake(snakeP.getX(),snakeP.getY());
                 snakeP.setRight(true);
             }
             
@@ -84,7 +84,8 @@ public class Game extends Thread{
                     if(snakeP.isDown()) snakeP.setY(snakeP.getY()+1);
                     
                     //Añadimos a la serpiente un nuevo punto 
-                    snakeP.addToSnake();
+                    snakeP.addToSnake(snakeP.getX(),snakeP.getY());
+
                     
                     //Eliminamos de la serpiente el ultimo punto
                     if(snakeP.getSnake().size()>snakeP.getSize()){
@@ -115,6 +116,11 @@ public class Game extends Thread{
             if(snake.getId() == id)
                 return snake;
         return null;
+    }
+
+
+    public void kill(int id){
+        snakePlayers.remove(getSnakeById(id));
     }
 
     public ArrayList<Snake> getSnakePlayers() {

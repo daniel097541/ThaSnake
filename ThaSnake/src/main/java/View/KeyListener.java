@@ -30,6 +30,7 @@ public class KeyListener extends KeyAdapter{
         Header heade = Header.DIR;
         List<String> args = new ArrayList<String>();
 
+        args.add(handler.getClientId() + "");
         switch (keyCode) {
             case KeyEvent.VK_UP:
                 args.add(Direction.UP.toString());

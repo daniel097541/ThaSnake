@@ -58,7 +58,9 @@ public class Server extends Thread implements iSnake {
     }
 
     public static void removePlayerFromServer(int id){
+        game.kill(id);
         players.remove(id);
+
     }
 
     public static void sendMessageToPlayer(int id, String message){

@@ -120,5 +120,9 @@ public abstract class Handler extends Thread implements iHandler {
     }
 
 
+    public int getClientId(){
+        return id;
+    }
+
 
 }

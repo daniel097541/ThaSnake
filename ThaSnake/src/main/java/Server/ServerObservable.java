@@ -50,8 +50,7 @@ public class ServerObservable extends java.util.Observable{
     
     
     public void changeDirection(int id, Direction direction){
-        
-       switch(direction){
+        switch(direction){
            case RIGHT:
                game.getSnakeById(id).setDown(false);
                game.getSnakeById(id).setUp(false);
