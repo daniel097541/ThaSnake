@@ -75,7 +75,7 @@ public class Game extends Thread{
             ticks++;
             
             //Si los ticks son mayores que 150000 modificamos la serpiente
-            if(ticks>1500000){
+            if(ticks>70000){
                 for(Snake snakeP: snakePlayers){
                     //Cambiamos la direccion de la serpiente
                     if(snakeP.isRight()) snakeP.setX(snakeP.getX()+1);
@@ -93,6 +93,11 @@ public class Game extends Thread{
                 }
                 //Ponemos ticks a 0 para que se reinice
                 ticks = 0;
+                try {
+                    sleep(500);
+                } catch (InterruptedException e) {
+
+                }
                 Server.broadCastGameStatus();
             }
         }
