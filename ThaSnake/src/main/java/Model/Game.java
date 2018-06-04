@@ -50,8 +50,8 @@ public class Game extends Thread{
             
             //Si no hay ninguna manzana, la creamos
             if(apples.isEmpty()){      
-                int x = r.nextInt(59);
-                int y = r.nextInt(59);
+                int x = r.nextInt(30);
+                int y = r.nextInt(30);
                 this.a = new Apple(x,y);
                 apples.add(a);
             }
@@ -63,6 +63,7 @@ public class Game extends Thread{
                     if(snakeP.getX() == apples.get(i).getX() && snakeP.getY() == apples.get(i).getY()){
                         snakeP.addSize();
                         snakeP.addPoints();
+                        Server.broadcastPoints();
                         if(!apples.isEmpty()){
                             apples.remove(i);
                             i--;
@@ -83,7 +84,13 @@ public class Game extends Thread{
                     if(snakeP.isLeft()) snakeP.setX(snakeP.getX()-1);                  
                     if(snakeP.isUp()) snakeP.setY(snakeP.getY()-1);
                     if(snakeP.isDown()) snakeP.setY(snakeP.getY()+1);
-                    
+
+                    //comprobar si se chocan
+                    for(Snake snake : snakePlayers){
+
+                    }
+
+
                     //Añadimos a la serpiente un nuevo punto 
                     snakeP.addToSnake(snakeP.getX(),snakeP.getY());
 

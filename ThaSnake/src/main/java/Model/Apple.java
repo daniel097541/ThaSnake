@@ -5,6 +5,9 @@
  */
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author DiegoPC
@@ -36,6 +39,15 @@ public class Apple {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public List<String> getAppleCrafted(){
+        List<String> crafted = new ArrayList<String>();
+
+        crafted.add(x + "");
+        crafted.add(y + "");
+
+        return crafted;
     }
     
 }

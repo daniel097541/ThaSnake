@@ -6,8 +6,8 @@
 package View;
 
 import Handler.Handler;
-import java.awt.Color;
-import java.awt.GridLayout;
+
+import java.awt.*;
 import javax.swing.JPanel;
 
 /**
@@ -29,6 +29,8 @@ public class ClientView extends javax.swing.JFrame {
         
         addKeyListener(new KeyListener(handler));
         setFocusable(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
         initGame(100, 100);
         setVisible(true);
     }

@@ -27,11 +27,17 @@ public class ClientHandler extends Handler{
         String line = read();
         while(on){
             if(line == null) continue;
+
+            if(line.startsWith(Header.PTS.toString())){
+                applyPtsChanges(getMegaPacketFromString(line));
+            }
+
             if(!line.startsWith("STATUS")) {
                 if (!applyChanges(getPacketFromString(line)))
                     break;
             }
-            else applyViewChanges(getMegaPacketFromString(line));
+
+            else if(line.startsWith("STATUS"))applyViewChanges(getMegaPacketFromString(line));
 
             line = read();
         }
@@ -42,7 +48,11 @@ public class ClientHandler extends Handler{
     private void applyViewChanges(MegaPacket megaPacket){
 
         for(Packet packet : megaPacket.getArgs()){
-            
+
+            if(packet.getHeader().equals(Header.APPLE)){
+                Client.Client.paint(Integer.parseInt(packet.getArgs().get(0)),Integer.parseInt(packet.getArgs().get(1)),"RED");
+                return;
+            }
             int xPaint = Integer.parseInt(packet.getArgs().get(1));
             int yPaint = Integer.parseInt(packet.getArgs().get(2));
 
@@ -55,6 +65,19 @@ public class ClientHandler extends Handler{
             Client.Client.paint(xRemove, yRemove, "WHITE");
         }
         
+    }
+
+    private void applyPtsChanges(MegaPacket megaPacket){
+
+        for(Packet packet : megaPacket.getArgs()){
+
+            int id = Integer.parseInt(packet.getArgs().get(0));
+            int pts = Integer.parseInt(packet.getArgs().get(1));
+            // aplica los cambios en el table
+
+        }
+
+
     }
 
 

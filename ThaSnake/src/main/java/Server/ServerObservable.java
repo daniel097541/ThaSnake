@@ -4,6 +4,7 @@ import Comunication.MegaPacket;
 import Comunication.Packet;
 import Enum.Direction;
 import Enum.Header;
+import Model.Apple;
 import Model.Game;
 import Model.Snake;
 
@@ -28,6 +29,11 @@ public class ServerObservable extends java.util.Observable{
         for(Snake snake : game.getSnakePlayers()){
             packets.add(new Packet(Header.MOV, snake.getSnakeCrafted()));
         }
+
+        for(Apple apple : game.getApples()){
+            packets.add(new Packet(Header.APPLE, apple.getAppleCrafted()));
+        }
+
         return new MegaPacket(Header.STATUS,packets).getCraftedPacket();
     }
 
@@ -47,7 +53,23 @@ public class ServerObservable extends java.util.Observable{
 
 
     }
-    
+
+    public void broadcastPts(){
+        List<Packet> packets = new ArrayList<Packet>();
+        for(Snake snakP : game.getSnakePlayers()){
+            List<String> args = new ArrayList<String>();
+            args.add(snakP.getId() + "");
+            args.add(snakP.getPoints() + "");
+            Packet packet = new Packet(Header.PTS,args);
+            packets.add(packet);
+        }
+
+        MegaPacket megaPacket = new MegaPacket(Header.PTS,packets);
+
+        for(Snake snake : game.getSnakePlayers()){
+            Server.sendMessageToPlayer(snake.getId(),megaPacket.getCraftedPacket());
+        }
+    }
     
     public void changeDirection(int id, Direction direction){
         switch(direction){

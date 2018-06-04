@@ -53,6 +53,12 @@ public class Server extends Thread implements iSnake {
         on = false;
     }
 
+
+    //METODO PARA MANDAR LAS PUNTUACIONES A TODOS
+    public static void broadcastPoints(){
+        observable.broadcastPts();
+    }
+
     public static void broadCastGameStatus(){
         observable.broadcastStatus();
     }
@@ -71,6 +77,5 @@ public class Server extends Thread implements iSnake {
         return observable;
     }
 
-    
 
 }
