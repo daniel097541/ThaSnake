@@ -41,8 +41,8 @@ public class Snake {
         List<String> args = new ArrayList<String>();
         args.add(id + "");
 
-        args.add(snake.get(size-1).getX() + "");
-        args.add(snake.get(size-1).getY() + "");
+        args.add(snake.get(snake.size()-1).getX() + "");
+        args.add(snake.get(snake.size()-1).getY() + "");
 
         args.add(snake.get(0).getX() + "");
         args.add(snake.get(0).getY() + "");

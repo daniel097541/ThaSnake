@@ -42,9 +42,10 @@ public class Game extends Thread{
             //No hacemos nada
         } else{
             //Por cada serpiente registrado, comprobamos si esta vacía, si es así la creamos
-            for(Snake snakeP: snakePlayers){  
-                snakeP.addToSnake(snakeP.getX(),snakeP.getY());
-                snakeP.setRight(true);
+            for(Snake snakeP: snakePlayers){
+                if(snakeP.getSnake().isEmpty()) {
+                    snakeP.addToSnake(snakeP.getX(), snakeP.getY());
+                }
             }
             
             //Si no hay ninguna manzana, la creamos
@@ -73,7 +74,7 @@ public class Game extends Thread{
             
             //Sumamos ticks al juego que serviran para comprobar la direccion
             ticks++;
-            
+
             //Si los ticks son mayores que 150000 modificamos la serpiente
             if(ticks>70000){
                 for(Snake snakeP: snakePlayers){
@@ -86,20 +87,21 @@ public class Game extends Thread{
                     //Añadimos a la serpiente un nuevo punto 
                     snakeP.addToSnake(snakeP.getX(),snakeP.getY());
 
-                    
                     //Eliminamos de la serpiente el ultimo punto
-                    if(snakeP.getSnake().size()>snakeP.getSize()){
+                    if(snakeP.getSnake().size() > snakeP.getSize()){
                         snakeP.getSnake().remove(0);
-                    }   
+                    }
+
                 }
                 //Ponemos ticks a 0 para que se reinice
                 ticks = 0;
+
+                Server.broadCastGameStatus();
                 try {
                     sleep(500);
                 } catch (InterruptedException e) {
 
                 }
-                Server.broadCastGameStatus();
             }
         }
     }

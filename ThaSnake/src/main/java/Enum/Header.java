@@ -10,6 +10,7 @@ public enum Header {
     PTS,
     FIN,
     IDC,
+    APPLE
 
 
 }
