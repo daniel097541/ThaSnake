@@ -28,7 +28,25 @@ public class ClientHandler extends Handler{
         while(on){
             if(line == null) continue;
 
-            if(line.startsWith(Header.PTS.toString())){
+            if(line.startsWith(Header.REMOVE_DEAD.toString())){
+
+                Packet p = getPacketFromString(line);
+                for(int i = 0; i <= p.getArgs().size() - 1 ; i++){
+                    int x = Integer.parseInt(p.getArgs().get(i));
+                    int y = Integer.parseInt(p.getArgs().get(i+1));
+                    Client.Client.paint(x,y,"WHITE");
+                    i++;
+                }
+                continue;
+            }
+
+            if(line.startsWith(Header.DIE.toString())){
+                close();
+                on = false;
+                break;
+            }
+
+            if(line.startsWith(Header.MEGAPTS.toString())){
                 applyPtsChanges(getMegaPacketFromString(line));
             }
 

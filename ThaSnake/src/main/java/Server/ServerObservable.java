@@ -5,6 +5,7 @@ import Comunication.Packet;
 import Enum.Direction;
 import Enum.Header;
 import Model.Apple;
+import Model.BodyPart;
 import Model.Game;
 import Model.Snake;
 
@@ -64,10 +65,29 @@ public class ServerObservable extends java.util.Observable{
             packets.add(packet);
         }
 
-        MegaPacket megaPacket = new MegaPacket(Header.PTS,packets);
+        MegaPacket megaPacket = new MegaPacket(Header.MEGAPTS,packets);
 
         for(Snake snake : game.getSnakePlayers()){
             Server.sendMessageToPlayer(snake.getId(),megaPacket.getCraftedPacket());
+        }
+    }
+
+
+    public void broadcastRemoveDead(int id){
+
+        Snake dead = game.getSnakePlayers().get(id-1);
+        List<String> args = new ArrayList<String>();
+        for(BodyPart b : dead.getSnake()){
+            args.add(b.getX() + "");
+            args.add(b.getY() + "");
+        }
+
+        Packet packet = new Packet(Header.REMOVE_DEAD,args);
+
+        for(Snake snake : game.getSnakePlayers()){
+            if(snake.getId() != id){
+                Server.sendMessageToPlayer(snake.getId(),packet.getCraftedPacket());
+            }
         }
     }
     

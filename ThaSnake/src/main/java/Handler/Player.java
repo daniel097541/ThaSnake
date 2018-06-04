@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Enum.Header;
 import Model.Snake;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
 public class Player extends Handler{
     
@@ -70,6 +71,15 @@ public class Player extends Handler{
         }
         
         
+    }
+
+
+    public void die(){
+        on = false;
+        List<String> args = new ArrayList<String>();
+        args.add(snake.getId() + "");
+        Packet packet = new Packet(Header.DIE, args);
+        sendPacket(packet);
     }
     
     
