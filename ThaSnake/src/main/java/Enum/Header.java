@@ -8,9 +8,12 @@ public enum Header {
     MOV,
     ERR,
     PTS,
+    MEGAPTS,
     FIN,
     IDC,
-    APPLE
+    APPLE,
+    DIE,
+    REMOVE_DEAD
 
 
 }

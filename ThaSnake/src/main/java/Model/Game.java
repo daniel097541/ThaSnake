@@ -8,6 +8,7 @@ package Model;
 
 import Server.Server;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 
@@ -63,7 +64,7 @@ public class Game extends Thread{
                     if(snakeP.getX() == apples.get(i).getX() && snakeP.getY() == apples.get(i).getY()){
                         snakeP.addSize();
                         snakeP.addPoints();
-                        Server.broadcastPoints();
+                       // Server.broadcastPoints();
                         if(!apples.isEmpty()){
                             apples.remove(i);
                             i--;
@@ -78,17 +79,30 @@ public class Game extends Thread{
 
             //Si los ticks son mayores que 150000 modificamos la serpiente
             if(ticks>70000){
-                for(Snake snakeP: snakePlayers){
+                for (Iterator<Snake> iter = snakePlayers.iterator(); iter.hasNext(); ) {
+                    Snake snakeP = iter.next();
                     //Cambiamos la direccion de la serpiente
                     if(snakeP.isRight()) snakeP.setX(snakeP.getX()+1);
                     if(snakeP.isLeft()) snakeP.setX(snakeP.getX()-1);                  
                     if(snakeP.isUp()) snakeP.setY(snakeP.getY()-1);
                     if(snakeP.isDown()) snakeP.setY(snakeP.getY()+1);
 
-                    //comprobar si se chocan
-                    for(Snake snake : snakePlayers){
 
-                    }
+                    /*
+                    for (Iterator<Snake> iter1 = snakePlayers.iterator(); iter.hasNext(); ) {
+                        Snake otherSnake = iter1.next();
+                        if(otherSnake.equals(snakeP)) continue;
+
+                        for(BodyPart b : otherSnake.getSnake()){
+                            if(b.getX() == snakeP.getX() && b.getY() == snakeP.getY()){
+                                Server.broadcastRemoveDead(snakeP.getId());
+                                iter.remove();
+                                Server.killSnake(snakeP.getId());
+                                break;
+                            }
+                        }
+
+                    } */
 
 
                     //Añadimos a la serpiente un nuevo punto 
