@@ -47,7 +47,7 @@ public class Client implements iSnake {
         Object row[] = {id,points};
         boolean found = false;
         for(int i=0;i<table.getjTable1().getRowCount()&&!found;i++){
-            Integer valor = Integer.parseInt((String) table.getjTable1().getValueAt(i,1));
+            Integer valor = (Integer) table.getjTable1().getValueAt(i,1);
             if(valor == id){
                 modifyRow(i,row,points);
                 found = true;

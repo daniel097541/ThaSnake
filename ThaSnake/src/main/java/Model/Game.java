@@ -64,7 +64,8 @@ public class Game extends Thread{
                     if(snakeP.getX() == apples.get(i).getX() && snakeP.getY() == apples.get(i).getY()){
                         snakeP.addSize();
                         snakeP.addPoints();
-                       // Server.broadcastPoints();
+                       //
+                        Server.broadcastPoints();
                         if(!apples.isEmpty()){
                             apples.remove(i);
                             i--;

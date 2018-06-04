@@ -19,47 +19,60 @@ public class ClientHandler extends Handler{
         this.start();
     }
 
+    private void applyRemoveDead(String line){
+        Packet p = getPacketFromString(line);
+        for(int i = 0; i <= p.getArgs().size() - 1 ; i++){
+            int x = Integer.parseInt(p.getArgs().get(i));
+            int y = Integer.parseInt(p.getArgs().get(i+1));
+            Client.Client.paint(x,y,"WHITE");
+            i++;
+        }
+    }
 
     @Override
     public void run() {
 
         System.out.println("Soy un cliente");
         String line = read();
+
+
         while(on){
+
+            //si no escribe nada el server sigue comprobando
             if(line == null) continue;
 
+            //orden de borrar los bloques de un jugador muerto
             if(line.startsWith(Header.REMOVE_DEAD.toString())){
-
-                Packet p = getPacketFromString(line);
-                for(int i = 0; i <= p.getArgs().size() - 1 ; i++){
-                    int x = Integer.parseInt(p.getArgs().get(i));
-                    int y = Integer.parseInt(p.getArgs().get(i+1));
-                    Client.Client.paint(x,y,"WHITE");
-                    i++;
-                }
+                applyRemoveDead(line);
+                line = read();
                 continue;
             }
 
-            if(line.startsWith(Header.DIE.toString())){
+            //ejecutado al morir o al acabarse la partida
+            if(line.startsWith(Header.DIE.toString()) || line.startsWith(Header.FIN.toString())){
                 close();
                 on = false;
                 break;
             }
 
+            // paquete de puntos para actualizar los marcadores de todos los jugadores
             if(line.startsWith(Header.MEGAPTS.toString())){
                 applyPtsChanges(getMegaPacketFromString(line));
+                line = read();
+                continue;
             }
 
-            if(!line.startsWith("STATUS")) {
-                if (!applyChanges(getPacketFromString(line)))
-                    break;
+            // paquete que aplica el estado del tablero en la vista
+            if(line.startsWith("STATUS")) {
+                applyViewChanges(getMegaPacketFromString(line));
+                line = read();
+                continue;
             }
 
-            else if(line.startsWith("STATUS"))applyViewChanges(getMegaPacketFromString(line));
-
+            // paquete de login con la id asignada al cliente
+            loginId(getPacketFromString(line));
             line = read();
         }
-        on = false;
     }
 
 
@@ -95,22 +108,12 @@ public class ClientHandler extends Handler{
     }
 
 
-    private boolean applyChanges(Packet packetFromString) {
+    private void loginId(Packet packetFromString) {
         Header header = packetFromString.getHeader();
-
-        if(header.equals(Header.FIN)){
-            close();
-            return false;
-        }
-
         if(header.equals(Header.IDC)) {
             id = Integer.parseInt(packetFromString.getArgs().get(0));
             System.out.println("El servidor me ha proporcionado la id de jugador: " + id);
         }
-        
-
-
-        return true;
     }
 
 
