@@ -9,6 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 import java.net.Socket;
+import javax.swing.table.DefaultTableModel;
 
 public class Client implements iSnake {
 
@@ -25,13 +26,37 @@ public class Client implements iSnake {
         login();
         view = new ClientView(handler);
         observable = new ClientObservable(view);
-        //table = new ClientTable();
+        table = new ClientTable();
 
     }
 
     public static void paint(int x, int y, String color){
         if(view != null)
             view.paintPoint(x, y, color);
+    }
+    
+    public static void addRow(Object[] row){
+        ((DefaultTableModel)table.getjTable1().getModel()).addRow(row);
+    }
+    
+    public static void modifyRow(Integer i,Object[] row,Integer points){
+        table.getjTable1().getModel().setValueAt(points,i,0);
+    }
+    
+    public static void modifyTable(Integer id,Integer points){
+        Object row[] = {id,points};
+        boolean found = false;
+        for(int i=0;i<table.getjTable1().getRowCount()&&!found;i++){
+            Integer valor = Integer.parseInt((String) table.getjTable1().getValueAt(i,1));
+            if(valor == id){
+                modifyRow(i,row,points);
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            addRow(row);
+        }
     }
 
     private static void login(){

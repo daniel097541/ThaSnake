@@ -70,14 +70,10 @@ public class ClientHandler extends Handler{
     private void applyPtsChanges(MegaPacket megaPacket){
 
         for(Packet packet : megaPacket.getArgs()){
-
             int id = Integer.parseInt(packet.getArgs().get(0));
             int pts = Integer.parseInt(packet.getArgs().get(1));
-            // aplica los cambios en el table
-
+            Client.Client.modifyTable(id,pts);
         }
-
-
     }
 
 
