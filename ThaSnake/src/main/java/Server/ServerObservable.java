@@ -4,6 +4,7 @@ import Comunication.MegaPacket;
 import Comunication.Packet;
 import Enum.Direction;
 import Enum.Header;
+import Handler.Player;
 import Model.Apple;
 import Model.BodyPart;
 import Model.Game;
@@ -18,15 +19,15 @@ public class ServerObservable extends java.util.Observable{
     private Game game;
 
 
-    public ServerObservable(Game game) {
+    ServerObservable(Game game) {
         this.game = game;
     }
 
 
 
     // CONVIERTE TODO EL ESTADO DEL JUEGO EN UN STRING
-    public String craftStatus(){
-        List<Packet> packets = new ArrayList<Packet>();
+    private String craftStatus(){
+        List<Packet> packets = new ArrayList<>();
         for(Snake snake : game.getSnakePlayers()){
             packets.add(new Packet(Header.MOV, snake.getSnakeCrafted()));
         }
@@ -40,25 +41,25 @@ public class ServerObservable extends java.util.Observable{
 
 
 
-    public void broadcastStatus(){
+    void broadcastStatus(){
 
         //tradutor traduce a un string el estado de cada serpiente en el juego
         String status = craftStatus();
 
         // se envia el estatus a cada cliente del servidor como una difusion par que cada cliente pinte
         // el estado del juego en su correspondiente vista
-        for(Snake snake : game.getSnakePlayers()){
-            Server.sendMessageToPlayer(snake.getId(),status);
+        for(Player player: Server.getPlayers().values()){
+            Server.sendMessageToPlayer(player.getClientId(),status);
         }
 
 
 
     }
 
-    public void broadcastPts(){
-        List<Packet> packets = new ArrayList<Packet>();
+    void broadcastPts(){
+        List<Packet> packets = new ArrayList<>();
         for(Snake snakP : game.getSnakePlayers()){
-            List<String> args = new ArrayList<String>();
+            List<String> args = new ArrayList<>();
             args.add(snakP.getId() + "");
             args.add(snakP.getPoints() + "");
             Packet packet = new Packet(Header.PTS,args);
@@ -73,10 +74,10 @@ public class ServerObservable extends java.util.Observable{
     }
 
 
-    public void broadcastRemoveDead(int id){
+    void broadcastRemoveDead(int id){
 
         Snake dead = game.getSnakePlayers().get(id-1);
-        List<String> args = new ArrayList<String>();
+        List<String> args = new ArrayList<>();
         for(BodyPart b : dead.getSnake()){
             args.add(b.getX() + "");
             args.add(b.getY() + "");

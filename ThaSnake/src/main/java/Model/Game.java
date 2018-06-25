@@ -9,6 +9,7 @@ package Model;
 import Server.Server;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 
@@ -80,37 +81,44 @@ public class Game extends Thread{
 
             //Si los ticks son mayores que 150000 modificamos la serpiente
             if(ticks>70000){
-                for (Iterator<Snake> iter = snakePlayers.iterator(); iter.hasNext(); ) {
-                    Snake snakeP = iter.next();
+                for (Snake snakeP : snakePlayers) {
                     //Cambiamos la direccion de la serpiente
-                    if(snakeP.isRight()) snakeP.setX(snakeP.getX()+1);
-                    if(snakeP.isLeft()) snakeP.setX(snakeP.getX()-1);                  
-                    if(snakeP.isUp()) snakeP.setY(snakeP.getY()-1);
-                    if(snakeP.isDown()) snakeP.setY(snakeP.getY()+1);
+                    if (snakeP.isRight()) snakeP.setX(snakeP.getX() + 1);
+                    if (snakeP.isLeft()) snakeP.setX(snakeP.getX() - 1);
+                    if (snakeP.isUp()) snakeP.setY(snakeP.getY() - 1);
+                    if (snakeP.isDown()) snakeP.setY(snakeP.getY() + 1);
 
 
-                    /*
-                    for (Iterator<Snake> iter1 = snakePlayers.iterator(); iter.hasNext(); ) {
-                        Snake otherSnake = iter1.next();
-                        if(otherSnake.equals(snakeP)) continue;
+                    //killed = false entonces no ha muerto
+                    boolean killed = false;
 
-                        for(BodyPart b : otherSnake.getSnake()){
-                            if(b.getX() == snakeP.getX() && b.getY() == snakeP.getY()){
+                    //comprobamos si se choca con otra serpiente
+                    for (Snake otherSnake : snakePlayers) {
+
+                        if (snakeP.equals(otherSnake)) continue;
+
+                        for (BodyPart bp : otherSnake.getSnake()) {
+                            if (bp.getX() == snakeP.getX() && bp.getY() == snakeP.getY()) {
                                 Server.broadcastRemoveDead(snakeP.getId());
-                                iter.remove();
                                 Server.killSnake(snakeP.getId());
+                                killed = true;
                                 break;
                             }
                         }
+                    }
 
-                    } */
+                    //si ha muerto, la borramos del juego para no pintarla mas
+                    if(killed) {
+                        snakePlayers.remove(snakeP);
+                        continue;
+                    }
 
 
                     //Añadimos a la serpiente un nuevo punto 
-                    snakeP.addToSnake(snakeP.getX(),snakeP.getY());
+                    snakeP.addToSnake(snakeP.getX(), snakeP.getY());
 
                     //Eliminamos de la serpiente el ultimo punto
-                    if(snakeP.getSnake().size() > snakeP.getSize()){
+                    if (snakeP.getSnake().size() > snakeP.getSize()) {
                         snakeP.getSnake().remove(0);
                     }
 

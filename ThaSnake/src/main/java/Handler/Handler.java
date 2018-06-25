@@ -46,7 +46,7 @@ public abstract class Handler extends Thread implements iHandler {
 
         StringTokenizer tokenizer = new StringTokenizer(packet);
         Header header = Header.valueOf(tokenizer.nextToken(";"));
-        List<String> args = new ArrayList<String>();
+        List<String> args = new ArrayList<>();
 
         while (tokenizer.hasMoreElements()){
             args.add(tokenizer.nextToken(";"));
@@ -56,13 +56,13 @@ public abstract class Handler extends Thread implements iHandler {
     }
 
 
-    public MegaPacket getMegaPacketFromString(String stringPacket){
+    MegaPacket getMegaPacketFromString(String stringPacket){
 
         StringTokenizer tokenizer = new StringTokenizer(stringPacket);
 
         Header header = Header.valueOf(tokenizer.nextToken(":"));
 
-        List<Packet> packets = new ArrayList<Packet>();
+        List<Packet> packets = new ArrayList<>();
 
 
         while (tokenizer.hasMoreElements()){

@@ -24,7 +24,7 @@ public class ClientHandler extends Handler{
         for(int i = 0; i <= p.getArgs().size() - 1 ; i++){
             int x = Integer.parseInt(p.getArgs().get(i));
             int y = Integer.parseInt(p.getArgs().get(i+1));
-            Client.Client.paint(x,y,"WHITE");
+            Client.Client.getObservable().paint(x,y,"WHITE");
             i++;
         }
     }
@@ -81,7 +81,7 @@ public class ClientHandler extends Handler{
         for(Packet packet : megaPacket.getArgs()){
 
             if(packet.getHeader().equals(Header.APPLE)){
-                Client.Client.paint(Integer.parseInt(packet.getArgs().get(0)),Integer.parseInt(packet.getArgs().get(1)),"RED");
+                Client.Client.getObservable().paint(Integer.parseInt(packet.getArgs().get(0)),Integer.parseInt(packet.getArgs().get(1)),"RED");
                 return;
             }
             int xPaint = Integer.parseInt(packet.getArgs().get(1));
@@ -92,8 +92,8 @@ public class ClientHandler extends Handler{
             int yRemove = Integer.parseInt(packet.getArgs().get(4));
             
             
-            Client.Client.paint(xPaint,yPaint,"RED");
-            Client.Client.paint(xRemove, yRemove, "WHITE");
+            Client.Client.getObservable().paint(xPaint,yPaint,"RED");
+            Client.Client.getObservable().paint(xRemove, yRemove, "WHITE");
         }
         
     }
@@ -103,7 +103,7 @@ public class ClientHandler extends Handler{
         for(Packet packet : megaPacket.getArgs()){
             int id = Integer.parseInt(packet.getArgs().get(0));
             int pts = Integer.parseInt(packet.getArgs().get(1));
-            Client.Client.modifyTable(id,pts);
+            Client.Client.getObservable().modifyTable(id,pts);
         }
     }
 

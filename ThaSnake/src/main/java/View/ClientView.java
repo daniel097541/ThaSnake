@@ -43,7 +43,7 @@ public class ClientView extends javax.swing.JFrame {
         repaint();
     }
     
-    public void initGame(int x, int y){
+    private void initGame(int x, int y){
         
         snakePanel = new JPanel[y][y];
         scene.setLayout(new GridLayout(x, y, 1, 1));

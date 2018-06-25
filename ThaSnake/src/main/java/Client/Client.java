@@ -48,10 +48,10 @@ public class Client implements iSnake {
             int p = Integer.parseInt(port);
             if(p == PORT){
                 correctPort = true;
+                observable = new ClientObservable();
                 login();
                 System.out.println();
                 view = new ClientView(handler);
-                observable = new ClientObservable(view);
                 table = new ClientTable();
                 break;
             }
@@ -59,34 +59,6 @@ public class Client implements iSnake {
         }
     }
 
-    public static void paint(int x, int y, String color){
-        if(view != null)
-            view.paintPoint(x, y, color);
-    }
-    
-    public static void addRow(Object[] row){
-        ((DefaultTableModel)table.getjTable1().getModel()).addRow(row);
-    }
-    
-    public static void modifyRow(Integer i,Object[] row,Integer points){
-        table.getjTable1().getModel().setValueAt(points,i,1);
-    }
-   
-    public static void modifyTable(Integer id,Integer points){
-        Object row[] = {id,points};
-        boolean found = false;
-        for(int i=0;i<table.getjTable1().getRowCount()&&!found;i++){
-            Integer valor = (Integer) table.getjTable1().getValueAt(i,0);
-            if(valor == id){
-                modifyRow(i,row,points);
-                found = true;
-                break;
-            }
-        }
-        if(!found){
-            addRow(row);
-        }
-    }
 
     private static void login(){
         try {
@@ -98,4 +70,20 @@ public class Client implements iSnake {
         }
     }
 
+
+    public static ClientView getView() {
+        return view;
+    }
+
+    public static ClientObservable getObservable() {
+        return observable;
+    }
+
+    public static ClientHandler getHandler() {
+        return handler;
+    }
+
+    public static ClientTable getTable() {
+        return table;
+    }
 }

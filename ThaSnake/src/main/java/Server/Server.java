@@ -84,4 +84,8 @@ public class Server extends Thread implements iSnake {
     public static void broadcastRemoveDead(int id){
         observable.broadcastRemoveDead(id);
     }
+
+    public static HashMap<Integer, Player> getPlayers() {
+        return players;
+    }
 }
