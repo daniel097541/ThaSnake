@@ -97,6 +97,23 @@ public class Game extends Thread{
 
                         if (snakeP.equals(otherSnake)) continue;
 
+
+                        //si se chocan de frente mueren los dos
+                        boolean frontKill = false;
+
+                        if(otherSnake.getX() == snakeP.getX() && otherSnake.getY() == snakeP.getY()){
+                            Server.broadcastRemoveDead(otherSnake.getId());
+                            Server.killSnake(otherSnake.getId());
+                            snakePlayers.remove(otherSnake);
+                            frontKill = true;
+                            killed = true;
+                            break;
+                        }
+
+                        if(frontKill)
+                            break;
+
+                        //si no se han chocado de frente comprueba si snakep ha chocado con una bodypart de otro
                         for (BodyPart bp : otherSnake.getSnake()) {
                             if (bp.getX() == snakeP.getX() && bp.getY() == snakeP.getY()) {
                                 Server.broadcastRemoveDead(snakeP.getId());
