@@ -122,10 +122,17 @@ public class Game extends Thread{
                         snakeP.getSnake().remove(0);
                     }
 
+                    //si la serpiente se ha salido de la pantalla la matamos
+                    if(snakeP.getY() > 100 || snakeP.getX() > 100 || snakeP.getX()< 0 || snakeP.getX() < 0){
+                        Server.broadcastRemoveDead(snakeP.getId());
+                        Server.killSnake(snakeP.getId());
+                        snakePlayers.remove(snakeP);
+                    }
+
+
                 }
                 //Ponemos ticks a 0 para que se reinice
                 ticks = 0;
-
                 Server.broadCastGameStatus();
                 try {
                     sleep(500);
