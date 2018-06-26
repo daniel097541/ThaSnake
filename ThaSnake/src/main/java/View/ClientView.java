@@ -7,7 +7,9 @@ package View;
 
 import Handler.Handler;
 
+import java.awt.Color;
 import java.awt.*;
+import java.lang.reflect.Field;
 import javax.swing.JPanel;
 
 /**
@@ -36,9 +38,25 @@ public class ClientView extends javax.swing.JFrame {
     }
     
     public void paintPoint(int x, int y, String color){
+        Color c = Color.BLACK;
+
         if(color.equalsIgnoreCase("RED"))
-            snakePanel[y][x].setBackground(Color.RED);
+            c = Color.RED;
+        if(color.equalsIgnoreCase("BLUE"))
+            c = Color.BLUE;
+        if(color.equalsIgnoreCase("black"))
+            c = Color.black;
+        if(color.equalsIgnoreCase("cyan"))
+            c = Color.CYAN;
+        if(color.equalsIgnoreCase("green"))
+            c = Color.GREEN;
+
+        //si no es blanco pinta el color que sea
+        if(!color.equalsIgnoreCase("WHITE"))
+            snakePanel[y][x].setBackground(c);
+        //por el contrario pinya en blanco que borrara el punto final
         else snakePanel[y][x].setBackground(Color.WHITE);
+
         scene.add(snakePanel[x][y]);
         repaint();
     }

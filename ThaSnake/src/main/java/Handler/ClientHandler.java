@@ -84,15 +84,15 @@ public class ClientHandler extends Handler{
                 Client.Client.getObservable().paint(Integer.parseInt(packet.getArgs().get(0)),Integer.parseInt(packet.getArgs().get(1)),"RED");
                 return;
             }
-            int xPaint = Integer.parseInt(packet.getArgs().get(1));
-            int yPaint = Integer.parseInt(packet.getArgs().get(2));
+            int xPaint = Integer.parseInt(packet.getArgs().get(2));
+            int yPaint = Integer.parseInt(packet.getArgs().get(3));
 
 
-            int xRemove = Integer.parseInt(packet.getArgs().get(3));
-            int yRemove = Integer.parseInt(packet.getArgs().get(4));
+            int xRemove = Integer.parseInt(packet.getArgs().get(4));
+            int yRemove = Integer.parseInt(packet.getArgs().get(5));
             
             
-            Client.Client.getObservable().paint(xPaint,yPaint,"RED");
+            Client.Client.getObservable().paint(xPaint,yPaint,packet.getArgs().get(1));
             Client.Client.getObservable().paint(xRemove, yRemove, "WHITE");
         }
         

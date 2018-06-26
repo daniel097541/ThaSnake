@@ -13,7 +13,10 @@ public enum Header {
     IDC,
     APPLE,
     DIE,
-    REMOVE_DEAD
+    REMOVE_DEAD,
+    DIE_CRASH,
+    DIE_OUT,
+    COLOR
 
 
 }

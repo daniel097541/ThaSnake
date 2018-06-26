@@ -17,6 +17,8 @@ public class Snake {
     private Integer id;
 
     private ArrayList<BodyPart> snake;
+
+    private String color;
     
     private Integer points;
     
@@ -40,6 +42,7 @@ public class Snake {
     public List<String> getSnakeCrafted(){
         List<String> args = new ArrayList<String>();
         args.add(id + "");
+        args.add(color);
 
         args.add(snake.get(snake.size()-1).getX() + "");
         args.add(snake.get(snake.size()-1).getY() + "");
@@ -162,5 +165,12 @@ public class Snake {
     public void setDown(boolean down) {
         this.down = down;
     }
- 
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

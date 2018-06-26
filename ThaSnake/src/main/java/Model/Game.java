@@ -18,12 +18,12 @@ import java.util.Random;
  * @author DiegoPC
  */
 public class Game extends Thread{
-    
+
     private boolean running = true;
-    
+
     private ArrayList<Snake> snakePlayers;
     private ArrayList<Snake> snakeBots;
-    
+
     private Apple a;
     private ArrayList<Apple> apples;
     
@@ -79,9 +79,11 @@ public class Game extends Thread{
             //Sumamos ticks al juego que serviran para comprobar la direccion
             ticks++;
 
-            //Si los ticks son mayores que 150000 modificamos la serpiente
+            //Si los ticks son mayores que 70000 modificamos la serpiente
             if(ticks>70000){
-                for (Snake snakeP : snakePlayers) {
+                for (Iterator<Snake> iterator = snakePlayers.iterator(); iterator.hasNext();) {
+
+                    Snake snakeP = iterator.next();
                     //Cambiamos la direccion de la serpiente
                     if (snakeP.isRight()) snakeP.setX(snakeP.getX() + 1);
                     if (snakeP.isLeft()) snakeP.setX(snakeP.getX() - 1);
@@ -91,27 +93,25 @@ public class Game extends Thread{
 
                     //killed = false entonces no ha muerto
                     boolean killed = false;
+                    boolean frontKill = false;
 
                     //comprobamos si se choca con otra serpiente
-                    for (Snake otherSnake : snakePlayers) {
+                    for (Iterator<Snake> iter = snakePlayers.iterator(); iter.hasNext();) {
 
+                        Snake otherSnake = iter.next();
+
+                        //si es la misma snake que en el otro bucle, siguiente iteracion
                         if (snakeP.equals(otherSnake)) continue;
 
 
-                        //si se chocan de frente mueren los dos
-                        boolean frontKill = false;
-
-                        if(otherSnake.getX() == snakeP.getX() && otherSnake.getY() == snakeP.getY()){
-                            Server.broadcastRemoveDead(otherSnake.getId());
-                            Server.killSnake(otherSnake.getId());
-                            snakePlayers.remove(otherSnake);
+                        //frontkill: cuando chocan de frente mueren ambas
+                        if(otherSnake.getY() == snakeP.getY() && otherSnake.getX() == snakeP.getX()){
                             frontKill = true;
                             killed = true;
+                            iter.remove();
                             break;
                         }
 
-                        if(frontKill)
-                            break;
 
                         //si no se han chocado de frente comprueba si snakep ha chocado con una bodypart de otro
                         for (BodyPart bp : otherSnake.getSnake()) {
@@ -126,7 +126,7 @@ public class Game extends Thread{
 
                     //si ha muerto, la borramos del juego para no pintarla mas
                     if(killed) {
-                        snakePlayers.remove(snakeP);
+                        iterator.remove();
                         continue;
                     }
 
@@ -154,7 +154,7 @@ public class Game extends Thread{
                 try {
                     sleep(500);
                 } catch (InterruptedException e) {
-
+                    Server.sendError();
                 }
             }
         }

@@ -16,7 +16,7 @@ public class Player extends Handler{
     
     private Snake snake;
 
-    public Player(Socket socket, int id) {
+    public Player(Socket socket, int id, String color) {
         this.socket = socket;
         this.id = id;
         this.on = true;
@@ -31,6 +31,7 @@ public class Player extends Handler{
         sendInitialMessage();
         System.out.println("Se ha registrado en el servidor el cliente con el id: " + id);
         this.snake = new Snake(id);
+        snake.setColor(color);
         this.start();
 
     }
