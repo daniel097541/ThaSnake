@@ -5,12 +5,10 @@ import Interface.iSnake;
 import View.ClientTable;
 import View.ClientView;
 
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-
 import java.net.Socket;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class Client implements iSnake {
 

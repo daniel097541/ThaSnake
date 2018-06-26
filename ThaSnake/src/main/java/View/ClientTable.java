@@ -5,7 +5,7 @@
  */
 package View;
 
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**

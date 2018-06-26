@@ -3,17 +3,18 @@ package Handler;
 
 import Comunication.MegaPacket;
 import Comunication.Packet;
+import Enum.Header;
 import Interface.iHandler;
+import Server.Server;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import Enum.Header;
-import Server.Server;
 
 public abstract class Handler extends Thread implements iHandler {
 

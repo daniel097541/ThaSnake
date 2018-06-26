@@ -7,9 +7,9 @@ package Model;
 
 
 import Server.Server;
+
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 
@@ -143,7 +143,7 @@ public class Game extends Thread{
                     if(snakeP.getY() > 100 || snakeP.getX() > 100 || snakeP.getX()< 0 || snakeP.getX() < 0){
                         Server.broadcastRemoveDead(snakeP.getId());
                         Server.killSnake(snakeP.getId());
-                        snakePlayers.remove(snakeP);
+                        iterator.remove();
                     }
 
 

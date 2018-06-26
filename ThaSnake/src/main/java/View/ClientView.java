@@ -7,10 +7,8 @@ package View;
 
 import Handler.Handler;
 
-import java.awt.Color;
+import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Field;
-import javax.swing.JPanel;
 
 /**
  *

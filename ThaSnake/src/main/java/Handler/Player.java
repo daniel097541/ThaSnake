@@ -2,15 +2,15 @@ package Handler;
 
 import Comunication.Packet;
 import Enum.Direction;
+import Enum.Header;
+import Model.Snake;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import Enum.Header;
-import Model.Snake;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
 public class Player extends Handler{
     

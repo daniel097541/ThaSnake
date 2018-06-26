@@ -1,7 +1,7 @@
 package Server;
 
-import Interface.iSnake;
 import Handler.Player;
+import Interface.iSnake;
 import Model.Game;
 
 import java.io.IOException;
@@ -88,7 +88,8 @@ public class Server extends Thread implements iSnake {
     }
 
 
-    public static void sendMessageToPlayer(int id, String message){
+
+    static void sendMessageToPlayer(int id, String message){
         players.get(id).write(message);
     }
 
@@ -105,7 +106,7 @@ public class Server extends Thread implements iSnake {
         observable.broadcastRemoveDead(id);
     }
 
-    public static HashMap<Integer, Player> getPlayers() {
+    static HashMap<Integer, Player> getPlayers() {
         return players;
     }
 }
