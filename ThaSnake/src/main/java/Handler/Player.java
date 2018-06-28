@@ -16,7 +16,7 @@ public class Player extends Handler{
     
     private Snake snake;
 
-    public Player(Socket socket, int id, String color) {
+    public Player(Socket socket, int id) {
         this.socket = socket;
         this.id = id;
         this.on = true;
@@ -31,7 +31,6 @@ public class Player extends Handler{
         sendInitialMessage();
         System.out.println("Se ha registrado en el servidor el cliente con el id: " + id);
         this.snake = new Snake(id);
-        snake.setColor(color);
         this.start();
 
     }
@@ -63,7 +62,11 @@ public class Player extends Handler{
     private void changeModel(Packet packet){
         
         switch(packet.getHeader()){
-            
+
+            case COLOR:
+                this.snake.setColor(packet.getArgs().get(0));
+                break;
+
             case DIR:
                 int id = Integer.parseInt(packet.getArgs().get(0));
                 Direction dir = Direction.valueOf(packet.getArgs().get(1));

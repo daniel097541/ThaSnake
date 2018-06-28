@@ -1,5 +1,6 @@
 package Handler;
 
+import Client.Client;
 import Comunication.MegaPacket;
 import Comunication.Packet;
 import Enum.Header;
@@ -7,6 +8,8 @@ import Enum.Header;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientHandler extends Handler{
 
@@ -25,7 +28,7 @@ public class ClientHandler extends Handler{
         for(int i = 0; i <= p.getArgs().size() - 1 ; i++){
             int x = Integer.parseInt(p.getArgs().get(i));
             int y = Integer.parseInt(p.getArgs().get(i+1));
-            Client.Client.getObservable().paint(x,y,"WHITE");
+            Client.getObservable().paint(x,y,"WHITE");
             i++;
         }
     }
@@ -35,6 +38,8 @@ public class ClientHandler extends Handler{
 
         System.out.println("Soy un cliente");
         String line = read();
+
+        sendColor();
 
 
         while(on){
@@ -76,13 +81,26 @@ public class ClientHandler extends Handler{
         }
     }
 
+    private void sendColor() {
+        // envia el color de la serpiente al server
+        List<String> args = new ArrayList<>();
+        args.add(Client.getColor());
+        Header header = Header.COLOR;
+        sendPacket(new Packet(header, args));
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void applyViewChanges(MegaPacket megaPacket){
 
         for(Packet packet : megaPacket.getArgs()){
 
             if(packet.getHeader().equals(Header.APPLE)){
-                Client.Client.getObservable().paint(Integer.parseInt(packet.getArgs().get(0)),Integer.parseInt(packet.getArgs().get(1)),"RED");
+                Client.getObservable().paint(Integer.parseInt(packet.getArgs().get(0)),Integer.parseInt(packet.getArgs().get(1)),"RED");
                 return;
             }
             int xPaint = Integer.parseInt(packet.getArgs().get(2));
@@ -93,8 +111,8 @@ public class ClientHandler extends Handler{
             int yRemove = Integer.parseInt(packet.getArgs().get(5));
             
             
-            Client.Client.getObservable().paint(xPaint,yPaint,packet.getArgs().get(1));
-            Client.Client.getObservable().paint(xRemove, yRemove, "WHITE");
+           Client.getObservable().paint(xPaint,yPaint,packet.getArgs().get(1));
+           Client.getObservable().paint(xRemove, yRemove, "WHITE");
         }
         
     }
@@ -104,7 +122,7 @@ public class ClientHandler extends Handler{
         for(Packet packet : megaPacket.getArgs()){
             int id = Integer.parseInt(packet.getArgs().get(0));
             int pts = Integer.parseInt(packet.getArgs().get(1));
-            Client.Client.getObservable().modifyTable(id,pts);
+            Client.getObservable().modifyTable(id,pts);
         }
     }
 

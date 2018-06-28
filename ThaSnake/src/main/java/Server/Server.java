@@ -21,16 +21,10 @@ public class Server extends Thread implements iSnake {
     private static boolean on;
 
     private static Random random = new Random();
-    private static List<String> colors;
 
     public static void main(String[] arg) {
 
-        colors = new ArrayList<>();
-        colors.add("RED");
-        colors.add("BLUE");
-        colors.add("BLACK");
-        colors.add("CYAN");
-        colors.add("green");
+
 
         System.out.println("Soy el servidor!");
         on = true;
@@ -46,10 +40,13 @@ public class Server extends Thread implements iSnake {
             int clientId = 1;
 
             while(on){
-                int i = random.nextInt(colors.size()-1);
                 socket = serverSocket.accept();
-
-                Player p = new Player(socket,clientId, colors.get(i));
+                Player p = new Player(socket,clientId);
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 players.put(clientId,p);
                 game.getSnakePlayers().add(p.getSnake());           //A?adimos la nueva serpiente al modelo
                 clientId ++;
@@ -86,9 +83,6 @@ public class Server extends Thread implements iSnake {
     public static void sendError(){
 
     }
-
-
-
     static void sendMessageToPlayer(int id, String message){
         players.get(id).write(message);
     }

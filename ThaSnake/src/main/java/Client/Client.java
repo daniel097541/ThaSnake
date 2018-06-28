@@ -4,6 +4,7 @@ import Handler.ClientHandler;
 import Interface.iSnake;
 import View.ClientTable;
 import View.ClientView;
+import View.ColorChooser;
 
 import javax.swing.*;
 import java.io.DataInputStream;
@@ -19,6 +20,8 @@ public class Client implements iSnake {
     private static ClientObservable observable;
     private static String ip;
     private static String port;
+    private static String color;
+    private static ColorChooser cc;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -40,6 +43,17 @@ public class Client implements iSnake {
             }
             JOptionPane.showMessageDialog(null, "IP incorrecta, introduzca una nueva");
         }
+        
+
+        cc = new ColorChooser();
+        cc.setVisible(true);
+
+        while(color == null){
+            System.out.println(" ");
+        }
+
+        cc.setVisible(false);
+        cc.dispose();
         boolean correctPort = false;
         while(!correctPort){
             port = JOptionPane.showInputDialog("Introduzca el puerto al que se quiere conectar: ");
@@ -63,6 +77,7 @@ public class Client implements iSnake {
             Socket socket = new Socket(ip,PORT);
             handler = new ClientHandler(socket,new DataInputStream(socket.getInputStream()), new DataOutputStream(socket.getOutputStream()));
             System.out.println("Logueado en el servidor!");
+
         } catch (Exception e) {
             System.out.println("Error: No se ha podido logear en el servidor!");
         }
@@ -84,4 +99,14 @@ public class Client implements iSnake {
     public static ClientTable getTable() {
         return table;
     }
+
+    public static String getColor() {
+        return color;
+    }
+
+    public static void setColor(String color) {
+        Client.color = color;
+    }
+    
+    
 }
