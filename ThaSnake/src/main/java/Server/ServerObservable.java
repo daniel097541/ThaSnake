@@ -32,6 +32,11 @@ public class ServerObservable extends java.util.Observable{
             packets.add(new Packet(Header.MOV, snake.getSnakeCrafted()));
         }
 
+
+        for(Snake bot : game.getSnakeBots()){
+            packets.add(new Packet(Header.MOV, bot.getSnakeCrafted()));
+        }
+
         for(Apple apple : game.getApples()){
             packets.add(new Packet(Header.APPLE, apple.getAppleCrafted()));
         }
@@ -122,6 +127,8 @@ public class ServerObservable extends java.util.Observable{
     public void setNumberBots(int numBots){
         for(int i = 0; i<numBots; i++){
             Snake bot = new Snake();
+            bot.setColor("RED");
+            bot.setId(game.getSnakePlayers().size() + i);
             game.getSnakeBots().add(bot);
         }
     }
