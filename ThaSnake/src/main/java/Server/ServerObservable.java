@@ -10,6 +10,7 @@ import Model.BodyPart;
 import Model.Game;
 import Model.Snake;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +128,7 @@ public class ServerObservable extends java.util.Observable{
     public void setNumberBots(int numBots){
         for(int i = 0; i<numBots; i++){
             Snake bot = new Snake();
-            bot.setColor("RED");
+            bot.setColor(Color.GRAY.toString());
             bot.setId(game.getSnakePlayers().size() + i);
             game.getSnakeBots().add(bot);
         }

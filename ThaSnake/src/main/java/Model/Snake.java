@@ -7,6 +7,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -19,15 +20,19 @@ public class Snake {
     private ArrayList<BodyPart> snake;
 
     private String color;
-    
+
+
     private Integer points;
     
-    private int x = 10, y = 10;
+    private int x , y;
     protected int size = 5; 
     
     private boolean right = true, left = false, up = false, down = false;
     
     public Snake(){
+        Random r = new Random();
+        this.x = r.nextInt(20);
+        this.y = r.nextInt(20);
         this.snake = new ArrayList();
         this.points = 0;
     }

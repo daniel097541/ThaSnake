@@ -48,6 +48,8 @@ public class ClientView extends javax.swing.JFrame {
             c = Color.CYAN;
         if(color.equalsIgnoreCase("green"))
             c = Color.GREEN;
+        if(color.equalsIgnoreCase("GRAY"))
+            c = Color.MAGENTA;
 
         //si no es blanco pinta el color que sea
         if(!color.equalsIgnoreCase("WHITE"))
