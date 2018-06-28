@@ -27,6 +27,11 @@ public class Snake {
     
     private boolean right = true, left = false, up = false, down = false;
     
+    public Snake(){
+        this.snake = new ArrayList();
+        this.points = 0;
+    }
+    
     public Snake(Integer id){
         this.snake = new ArrayList();
         this.id = id;

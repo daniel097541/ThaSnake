@@ -49,6 +49,12 @@ public class Game extends Thread{
                     snakeP.addToSnake(snakeP.getX(), snakeP.getY());
                 }
             }
+            //Por cada bot registrado, comprobamos si esta vacía, si es así la creamos
+            for(Snake snakeB: snakeBots){
+                if(snakeB.getSnake().isEmpty()) {
+                    snakeB.addToSnake(snakeB.getX(), snakeB.getY());
+                }
+            }
             
             //Si no hay ninguna manzana, la creamos
             if(apples.isEmpty()){      
@@ -67,6 +73,17 @@ public class Game extends Thread{
                         snakeP.addPoints();
                        //
                         Server.broadcastPoints();
+                        if(!apples.isEmpty()){
+                            apples.remove(i);
+                            i--;
+                            break;
+                        }
+                    }
+                }
+                for (Snake snakeBot : snakeBots) {
+                    if(snakeBot.getX() == apples.get(i).getX() && snakeBot.getY() == apples.get(i).getY()){       
+                        snakeBot.addSize();
+                        snakeBot.addPoints();
                         if(!apples.isEmpty()){
                             apples.remove(i);
                             i--;
@@ -143,6 +160,74 @@ public class Game extends Thread{
                     if(snakeP.getY() > 100 || snakeP.getX() > 100 || snakeP.getX()< 0 || snakeP.getX() < 0){
                         Server.broadcastRemoveDead(snakeP.getId());
                         Server.killSnake(snakeP.getId());
+                        iterator.remove();
+                    }
+
+
+                }
+                //BOTS
+                for (Iterator<Snake> iterator = snakeBots.iterator(); iterator.hasNext();) {
+
+                    Snake snakeB = iterator.next();
+                    //Cambiamos la direccion de la serpiente
+                    if (snakeB.isRight()) snakeB.setX(snakeB.getX() + 1);
+                    if (snakeB.isLeft()) snakeB.setX(snakeB.getX() - 1);
+                    if (snakeB.isUp()) snakeB.setY(snakeB.getY() - 1);
+                    if (snakeB.isDown()) snakeB.setY(snakeB.getY() + 1);
+
+
+                    //killed = false entonces no ha muerto
+                    boolean killed = false;
+                    boolean frontKill = false;
+
+                    //comprobamos si se choca con otra serpiente
+                    for (Iterator<Snake> iter = snakePlayers.iterator(); iter.hasNext();) {
+
+                        Snake otherSnake = iter.next();
+
+                        //si es la misma snake que en el otro bucle, siguiente iteracion
+                        if (snakeB.equals(otherSnake)) continue;
+
+
+                        //frontkill: cuando chocan de frente mueren ambas
+                        if(otherSnake.getY() == snakeB.getY() && otherSnake.getX() == snakeB.getX()){
+                            frontKill = true;
+                            killed = true;
+                            iter.remove();
+                            break;
+                        }
+
+
+                        //si no se han chocado de frente comprueba si snakep ha chocado con una bodypart de otro
+                        for (BodyPart bp : otherSnake.getSnake()) {
+                            if (bp.getX() == snakeB.getX() && bp.getY() == snakeB.getY()) {
+                                Server.broadcastRemoveDead(snakeB.getId());
+                                Server.killSnake(snakeB.getId());
+                                killed = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    //si ha muerto, la borramos del juego para no pintarla mas
+                    if(killed) {
+                        iterator.remove();
+                        continue;
+                    }
+
+
+                    //Añadimos a la serpiente un nuevo punto 
+                    snakeB.addToSnake(snakeB.getX(), snakeB.getY());
+
+                    //Eliminamos de la serpiente el ultimo punto
+                    if (snakeB.getSnake().size() > snakeB.getSize()) {
+                        snakeB.getSnake().remove(0);
+                    }
+
+                    //si la serpiente se ha salido de la pantalla la matamos
+                    if(snakeB.getY() > 100 || snakeB.getX() > 100 || snakeB.getX()< 0 || snakeB.getX() < 0){
+                        Server.broadcastRemoveDead(snakeB.getId());
+                        Server.killSnake(snakeB.getId());
                         iterator.remove();
                     }
 

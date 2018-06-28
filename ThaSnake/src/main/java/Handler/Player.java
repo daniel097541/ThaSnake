@@ -71,6 +71,11 @@ public class Player extends Handler{
                 int id = Integer.parseInt(packet.getArgs().get(0));
                 Direction dir = Direction.valueOf(packet.getArgs().get(1));
                 Server.Server.getObservable().changeDirection(id, dir);
+                break;
+            case BOTS:
+                int number = Integer.parseInt(packet.getArgs().get(0));
+                Server.Server.getObservable().setNumberBots(number);
+                break;
 
         }
         

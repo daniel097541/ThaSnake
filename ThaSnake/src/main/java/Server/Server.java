@@ -19,6 +19,7 @@ public class Server extends Thread implements iSnake {
     private static Game game;
     private static ServerObservable observable;
     private static boolean on;
+    private static BotController botController;
 
     private static Random random = new Random();
 
@@ -31,6 +32,7 @@ public class Server extends Thread implements iSnake {
         players = new HashMap<>();
         game = new Game();//Creamos el juego sin ningun jugador
         observable = new ServerObservable(game);
+        botController = new BotController();
 
         try {
 
@@ -103,4 +105,10 @@ public class Server extends Thread implements iSnake {
     static HashMap<Integer, Player> getPlayers() {
         return players;
     }
+
+    public static Game getGame() {
+        return game;
+    }
+    
+    
 }

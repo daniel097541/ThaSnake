@@ -1,5 +1,7 @@
 package Client;
 
+import Comunication.Packet;
+import Enum.Header;
 import Handler.ClientHandler;
 import Interface.iSnake;
 import View.ClientTable;
@@ -10,6 +12,8 @@ import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client implements iSnake {
 
@@ -29,7 +33,7 @@ public class Client implements iSnake {
         //crear aqui el panel del login y sacar la ip de ahi
         
         start();
-
+        setNumberBots();
 
     }
     
@@ -54,6 +58,7 @@ public class Client implements iSnake {
 
         cc.setVisible(false);
         cc.dispose();
+        //Para el numero de bots
         boolean correctPort = false;
         while(!correctPort){
             port = JOptionPane.showInputDialog("Introduzca el puerto al que se quiere conectar: ");
@@ -69,8 +74,18 @@ public class Client implements iSnake {
             }
             JOptionPane.showMessageDialog(null,"Puerto incorrecto, introduzca uno nuevo");
         }
+    }  
+    
+    private static void setNumberBots(){
+        if(handler.getClientId()==1){
+            String number = JOptionPane.showInputDialog("Introduce el numero de bots con los que deseas jugar");
+            //CREAR PAQUETE Y ENVIARLO
+            Header heade = Header.BOTS;
+            List<String> args = new ArrayList<String>();
+            args.add(number);
+            handler.sendPacket(new Packet(heade,args));
+        }
     }
-
 
     private static void login(){
         try {

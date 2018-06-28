@@ -116,9 +116,14 @@ public class ServerObservable extends java.util.Observable{
                game.getSnakeById(id).setDown(true);
                
        }
+    }
+    
         
-        
-        
+    public void setNumberBots(int numBots){
+        for(int i = 0; i<numBots; i++){
+            Snake bot = new Snake();
+            game.getSnakeBots().add(bot);
+        }
     }
 
 

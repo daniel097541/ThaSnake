@@ -16,7 +16,8 @@ public enum Header {
     REMOVE_DEAD,
     DIE_CRASH,
     DIE_OUT,
-    COLOR
+    COLOR,
+    BOTS
 
 
 }
