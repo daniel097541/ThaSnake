@@ -31,7 +31,7 @@ public class ClientView extends javax.swing.JFrame {
         setFocusable(true);
         setResizable(false);
         setLocationRelativeTo(null);
-        initGame(100, 100);
+        initGame(25, 32);
         setVisible(true);
     }
     
@@ -52,13 +52,19 @@ public class ClientView extends javax.swing.JFrame {
             c = Color.MAGENTA;
 
         //si no es blanco pinta el color que sea
-        if(!color.equalsIgnoreCase("WHITE"))
-            snakePanel[y][x].setBackground(c);
-        //por el contrario pinya en blanco que borrara el punto final
-        else snakePanel[y][x].setBackground(Color.WHITE);
+       try{
+            if(!color.equalsIgnoreCase("WHITE"))
+                snakePanel[y][x].setBackground(c);
+            //por el contrario pinya en blanco que borrara el punto final
+            else snakePanel[y][x].setBackground(Color.WHITE);
 
-        scene.add(snakePanel[x][y]);
-        repaint();
+            scene.add(snakePanel[x][y]);
+            repaint();
+        }catch(java.lang.ArrayIndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "¡Has perdido por llegar a la frontera!");
+            this.dispose();
+            System.exit(0);
+        }
     }
     
     private void initGame(int x, int y){
@@ -92,15 +98,17 @@ public class ClientView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        scene.setPreferredSize(new java.awt.Dimension(25, 32));
+
         javax.swing.GroupLayout sceneLayout = new javax.swing.GroupLayout(scene);
         scene.setLayout(sceneLayout);
         sceneLayout.setHorizontalGroup(
             sceneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 445, Short.MAX_VALUE)
         );
         sceneLayout.setVerticalGroup(
             sceneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 305, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,14 +117,14 @@ public class ClientView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scene, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scene, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scene, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scene, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
