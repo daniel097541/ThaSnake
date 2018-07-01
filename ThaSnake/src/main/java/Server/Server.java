@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 
 public class Server extends Thread implements iSnake {
@@ -32,6 +33,11 @@ public class Server extends Thread implements iSnake {
         players = new HashMap<>();
         game = new Game();//Creamos el juego sin ningun jugador
         observable = new ServerObservable(game);
+        int bots = -1;
+        while(bots < 0)
+            bots = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el numero de bots que desea: "));
+       
+        observable.setNumberBots(bots);
         botController = new BotController();
 
         try {
@@ -108,6 +114,10 @@ public class Server extends Thread implements iSnake {
 
     public static Game getGame() {
         return game;
+    }
+
+    public static void sendOutAlert(int id){
+        observable.sendOutAlert(id);
     }
     
     

@@ -29,24 +29,12 @@ public class Client implements iSnake {
 
     public static void main(String[] args) throws InterruptedException {
 
-
-        //crear aqui el panel del login y sacar la ip de ahi
-        
         start();
-       // setNumberBots();
 
     }
     
     public static void start(){
-        boolean correctIp = false;
-        while(!correctIp){
-            ip = JOptionPane.showInputDialog("Introduzca la IP del servidor: ");
-            if(ip.equals(HOST)){
-                correctIp = true;
-                break;
-            }
-            JOptionPane.showMessageDialog(null, "IP incorrecta, introduzca una nueva");
-        }
+
         
 
         cc = new ColorChooser();
@@ -58,6 +46,18 @@ public class Client implements iSnake {
 
         cc.setVisible(false);
         cc.dispose();
+        
+        //ip
+        boolean correctIp = false;
+        while(!correctIp){
+            ip = JOptionPane.showInputDialog("Introduzca la IP del servidor: ");
+            if(ip.equals(HOST)){
+                correctIp = true;
+                break;
+            }
+            JOptionPane.showMessageDialog(null, "IP incorrecta, introduzca una nueva");
+        }
+
         //Para el numero de bots
         boolean correctPort = false;
         while(!correctPort){

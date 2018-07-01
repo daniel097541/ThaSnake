@@ -161,7 +161,7 @@ public class Game extends Thread{
                     }
 
                     //si la serpiente se ha salido de la pantalla la matamos
-                    if(snakeP.getY() > 31 || snakeP.getX() > 24 || snakeP.getX()< 0 || snakeP.getX() < 0){
+                    if(snakeP.getX() > 31 || snakeP.getY() > 24 || snakeP.getX()< 0 || snakeP.getX() < 0){
                         Server.broadcastRemoveDead(snakeP.getId());
                         Server.killSnake(snakeP.getId());
                         iterator.remove();

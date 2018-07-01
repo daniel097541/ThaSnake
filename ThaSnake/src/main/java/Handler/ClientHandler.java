@@ -5,6 +5,7 @@ import Comunication.MegaPacket;
 import Comunication.Packet;
 import Enum.Header;
 
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -73,6 +74,11 @@ public class ClientHandler extends Handler{
                 applyViewChanges(getMegaPacketFromString(line));
                 line = read();
                 continue;
+            }
+
+            if(line.startsWith(Header.DIE_OUT.toString())){
+                JOptionPane.showMessageDialog(null, "Has perdido por llegar a la frontera!");
+                Client.getView().dispose();
             }
 
             // paquete de login con la id asignada al cliente

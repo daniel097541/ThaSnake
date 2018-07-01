@@ -5,6 +5,7 @@
  */
 package Server;
 
+import Model.BodyPart;
 import Model.Game;
 import Model.Snake;
 import Server.Server;
@@ -32,19 +33,12 @@ public class BotController extends Thread{
         
         
         //AQUI HACE EL MOVIMIENTO EVITANDO A LOS JUGADORES
+
+
         
         // AQUI HACE EL MOVIMIENTO DEPENDIENDO DE DONDE SALGA LA MANZANA
         for(Snake snake: game.getSnakeBots()){
-            if(snake.getX() > game.getApples().get(0).getX()){
-                snake.setUp(false);
-                snake.setDown(false);
-                snake.setLeft(true);
-            }
-            if(snake.getX() < game.getApples().get(0).getX()){
-                snake.setUp(false);
-                snake.setDown(false);
-                snake.setRight(true); 
-            }
+
             if(snake.getX() == game.getApples().get(0).getX()){
                if((snake.getY()<game.getApples().get(0).getY())){
                     snake.setRight(false);
@@ -56,6 +50,17 @@ public class BotController extends Thread{
                     snake.setLeft(false);
                     snake.setUp(true);
                 }
+            }
+
+            if(snake.getX() > game.getApples().get(0).getX()){
+                snake.setUp(false);
+                snake.setDown(false);
+                snake.setLeft(true);
+            }
+            if(snake.getX() < game.getApples().get(0).getX()){
+                snake.setUp(false);
+                snake.setDown(false);
+                snake.setRight(true);
             }
             sleep(10);
         }

@@ -101,22 +101,30 @@ public class ServerObservable extends java.util.Observable{
     public void changeDirection(int id, Direction direction){
         switch(direction){
            case RIGHT:
+               if(game.getSnakeById(id).isLeft())
+                   return;
                game.getSnakeById(id).setDown(false);
                game.getSnakeById(id).setUp(false);
                game.getSnakeById(id).setRight(true);
                break;
                
            case LEFT:
+               if(game.getSnakeById(id).isRight())
+                   return;
                game.getSnakeById(id).setDown(false);
                game.getSnakeById(id).setUp(false);
                game.getSnakeById(id).setLeft(true);
                break;
            case UP:
+               if(game.getSnakeById(id).isDown())
+                   return;
                game.getSnakeById(id).setRight(false);
                game.getSnakeById(id).setLeft(false);
                game.getSnakeById(id).setUp(true);
                break;
            case DOWN:
+               if(game.getSnakeById(id).isUp())
+                   return;
                game.getSnakeById(id).setRight(false);
                game.getSnakeById(id).setLeft(false);
                game.getSnakeById(id).setDown(true);
@@ -132,6 +140,13 @@ public class ServerObservable extends java.util.Observable{
             bot.setId(game.getSnakePlayers().size() + i);
             game.getSnakeBots().add(bot);
         }
+    }
+
+
+    public void sendOutAlert(int id){
+        List<String> list = new ArrayList<>();
+        list.add(id + "");
+        Server.getPlayers().get(id).sendPacket(new Packet(Header.DIE_OUT, list));
     }
 
 

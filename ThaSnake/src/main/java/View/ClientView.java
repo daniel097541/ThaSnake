@@ -52,24 +52,20 @@ public class ClientView extends javax.swing.JFrame {
             c = Color.MAGENTA;
 
         //si no es blanco pinta el color que sea
-       try{
-            if(!color.equalsIgnoreCase("WHITE"))
+            if(!color.equalsIgnoreCase("WHITE")) {
                 snakePanel[y][x].setBackground(c);
+            }
             //por el contrario pinya en blanco que borrara el punto final
             else snakePanel[y][x].setBackground(Color.WHITE);
 
-            scene.add(snakePanel[x][y]);
+            scene.add(snakePanel[y][x]);
             repaint();
-        }catch(java.lang.ArrayIndexOutOfBoundsException e){
-            JOptionPane.showMessageDialog(null, "¡Has perdido por llegar a la frontera!");
-            this.dispose();
-            System.exit(0);
-        }
+
     }
     
     private void initGame(int x, int y){
         
-        snakePanel = new JPanel[y][y];
+        snakePanel = new JPanel[x][y];
         scene.setLayout(new GridLayout(x, y, 1, 1));
         
         for(int i = 0; i<x; i++){
