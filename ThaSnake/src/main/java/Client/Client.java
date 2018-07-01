@@ -4,9 +4,9 @@ import Comunication.Packet;
 import Enum.Header;
 import Handler.ClientHandler;
 import Interface.iSnake;
+import View.ClientStartTable;
 import View.ClientTable;
 import View.ClientView;
-import View.ColorChooser;
 
 import javax.swing.*;
 import java.io.DataInputStream;
@@ -25,7 +25,7 @@ public class Client implements iSnake {
     private static String ip;
     private static String port;
     private static String color;
-    private static ColorChooser cc;
+    private static boolean started;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -35,17 +35,19 @@ public class Client implements iSnake {
     
     public static void start(){
 
+        started = false;
+        color = "BLACK";
         
-
-        cc = new ColorChooser();
-        cc.setVisible(true);
-
-        while(color == null){
-            System.out.println(" ");
+        ClientStartTable startTable = new ClientStartTable();
+        startTable.setVisible(true);
+        
+        while(!started){
+            System.out.println("");
         }
+            
+        startTable.setVisible(false);
+        startTable.dispose();
 
-        cc.setVisible(false);
-        cc.dispose();
         
         //ip
         boolean correctIp = false;
@@ -122,6 +124,15 @@ public class Client implements iSnake {
     public static void setColor(String color) {
         Client.color = color;
     }
+
+    public static boolean isStarted() {
+        return started;
+    }
+
+    public static void setStarted(boolean started) {
+        Client.started = started;
+    }
+    
     
     
 }

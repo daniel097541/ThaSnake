@@ -17,7 +17,8 @@ public enum Header {
     DIE_CRASH,
     DIE_OUT,
     COLOR,
-    BOTS
+    BOTS,
+    TURN_OFF
 
 
 }

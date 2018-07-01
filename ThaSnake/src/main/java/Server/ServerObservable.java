@@ -136,7 +136,7 @@ public class ServerObservable extends java.util.Observable{
     public void setNumberBots(int numBots){
         for(int i = 0; i<numBots; i++){
             Snake bot = new Snake();
-            bot.setColor(Color.GRAY.toString());
+            bot.setColor(Color.MAGENTA.toString());
             bot.setId(game.getSnakePlayers().size() + i);
             game.getSnakeBots().add(bot);
         }
@@ -149,6 +149,17 @@ public class ServerObservable extends java.util.Observable{
         Server.getPlayers().get(id).sendPacket(new Packet(Header.DIE_OUT, list));
     }
 
+    void sendTurnOff() {
+
+        for(Player p : Server.getPlayers().values()){
+            List<String> args = new ArrayList<>();
+            args.add("" + p.getId());
+            p.sendPacket(new Packet(Header.TURN_OFF, args));
+        }
+       
+    }
+
+    
 
 
 }

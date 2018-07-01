@@ -31,7 +31,7 @@ public class Snake {
     
     public Snake(){
         Random r = new Random();
-        this.x = r.nextInt(20);
+        this.x = r.nextInt(5);
         this.y = r.nextInt(20);
         this.snake = new ArrayList();
         this.points = 0;

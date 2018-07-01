@@ -3,6 +3,7 @@ package Server;
 import Handler.Player;
 import Interface.iSnake;
 import Model.Game;
+import View.ServerPanel;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,6 +22,7 @@ public class Server extends Thread implements iSnake {
     private static ServerObservable observable;
     private static boolean on;
     private static BotController botController;
+    private static ServerPanel serverPanel;
 
     private static Random random = new Random();
 
@@ -29,21 +31,23 @@ public class Server extends Thread implements iSnake {
 
 
         System.out.println("Soy el servidor!");
-        on = true;
+        serverPanel = new ServerPanel();
+        serverPanel.setVisible(true);
+        on = false;
+
+        while(!on){
+            System.out.println("");
+        }
+        
         players = new HashMap<>();
         game = new Game();//Creamos el juego sin ningun jugador
-        observable = new ServerObservable(game);
-        int bots = -1;
-        while(bots < 0)
-            bots = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el numero de bots que desea: "));
-       
-        observable.setNumberBots(bots);
+        observable = new ServerObservable(game);       
         botController = new BotController();
 
         try {
 
             ServerSocket serverSocket = new ServerSocket(PORT);
-            Socket socket = null;
+            Socket socket;
 
             int clientId = 1;
 
@@ -119,6 +123,20 @@ public class Server extends Thread implements iSnake {
     public static void sendOutAlert(int id){
         observable.sendOutAlert(id);
     }
+
+    public static boolean isOn() {
+        return on;
+    }
+
+    public static void setOn(boolean on) {
+        Server.on = on;
+    }
+    
+    public static void turnOff(){
+        observable.sendTurnOff();
+    }
+    
+
     
     
 }

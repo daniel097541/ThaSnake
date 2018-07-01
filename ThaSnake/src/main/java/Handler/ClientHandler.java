@@ -70,7 +70,7 @@ public class ClientHandler extends Handler{
             }
 
             // paquete que aplica el estado del tablero en la vista
-            if(line.startsWith("STATUS")) {
+            if(line.startsWith(Header.STATUS.toString())) {
                 applyViewChanges(getMegaPacketFromString(line));
                 line = read();
                 continue;
@@ -79,6 +79,12 @@ public class ClientHandler extends Handler{
             if(line.startsWith(Header.DIE_OUT.toString())){
                 JOptionPane.showMessageDialog(null, "Has perdido por llegar a la frontera!");
                 Client.getView().dispose();
+            }
+            
+            if(line.startsWith(Header.TURN_OFF.toString())){
+                JOptionPane.showMessageDialog(null, "El servidor ha sido apagado!");
+                Client.getView().dispose();
+                System.exit(0);
             }
 
             // paquete de login con la id asignada al cliente
