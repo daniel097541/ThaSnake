@@ -36,6 +36,10 @@ public class ClientView extends javax.swing.JFrame {
     }
     
     public void paintPoint(int x, int y, String color){
+
+        if(x < 0 || x > 31 || y < 0 || y > 24)
+            return;
+
         Color c = Color.BLACK;
 
         if(color.equalsIgnoreCase("RED"))
@@ -52,6 +56,7 @@ public class ClientView extends javax.swing.JFrame {
             c = Color.MAGENTA;
 
         //si no es blanco pinta el color que sea
+
             if(!color.equalsIgnoreCase("WHITE")) {
                 snakePanel[y][x].setBackground(c);
             }
