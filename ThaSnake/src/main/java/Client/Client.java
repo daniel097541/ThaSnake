@@ -33,7 +33,7 @@ public class Client implements iSnake {
         //crear aqui el panel del login y sacar la ip de ahi
         
         start();
-        setNumberBots();
+       // setNumberBots();
 
     }
     

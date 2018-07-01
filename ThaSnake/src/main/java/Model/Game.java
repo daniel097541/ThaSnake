@@ -58,8 +58,8 @@ public class Game extends Thread{
             
             //Si no hay ninguna manzana, la creamos
             if(apples.isEmpty()){      
-                int x = r.nextInt(30);
-                int y = r.nextInt(30);
+                int x = r.nextInt(20);
+                int y = r.nextInt(20);
                 this.a = new Apple(x,y);
                 apples.add(a);
             }
@@ -161,7 +161,7 @@ public class Game extends Thread{
                     }
 
                     //si la serpiente se ha salido de la pantalla la matamos
-                    if(snakeP.getY() > 100 || snakeP.getX() > 100 || snakeP.getX()< 0 || snakeP.getX() < 0){
+                    if(snakeP.getY() > 31 || snakeP.getX() > 24 || snakeP.getX()< 0 || snakeP.getX() < 0){
                         Server.broadcastRemoveDead(snakeP.getId());
                         Server.killSnake(snakeP.getId());
                         iterator.remove();
@@ -223,7 +223,7 @@ public class Game extends Thread{
                     }
 
                     //si la serpiente se ha salido de la pantalla la matamos
-                    if(snakeB.getY() > 100 || snakeB.getX() > 100 || snakeB.getX()< 0 || snakeB.getX() < 0){
+                    if(snakeB.getY() > 31 || snakeB.getX() > 24 || snakeB.getX()< 0 || snakeB.getX() < 0){
                         Server.broadcastRemoveDead(snakeB.getId());
                         Server.killSnake(snakeB.getId());
                         iterator.remove();
