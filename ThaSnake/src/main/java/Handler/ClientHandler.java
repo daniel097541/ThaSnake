@@ -87,6 +87,11 @@ public class ClientHandler extends Handler{
                 System.exit(0);
             }
 
+            if(line.startsWith(Header.DIE_CRASH.toString())){
+                JOptionPane.showMessageDialog(null,"Te has chocado con otra serpiente!");
+                Client.getView().dispose();
+            }
+
             // paquete de login con la id asignada al cliente
             loginId(getPacketFromString(line));
             line = read();

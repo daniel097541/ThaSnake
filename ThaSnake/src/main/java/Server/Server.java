@@ -137,6 +137,9 @@ public class Server extends Thread implements iSnake {
     }
     
 
+    public static void crash(int id){
+        getObservable().crash(id);
+    }
     
     
 }

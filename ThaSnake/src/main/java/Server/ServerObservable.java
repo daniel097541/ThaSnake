@@ -82,7 +82,7 @@ public class ServerObservable extends java.util.Observable{
 
     void broadcastRemoveDead(int id){
 
-        Snake dead = game.getSnakePlayers().get(id-1);
+        Snake dead = game.getSnakeById(id);
         List<String> args = new ArrayList<>();
         for(BodyPart b : dead.getSnake()){
             args.add(b.getX() + "");
@@ -159,7 +159,10 @@ public class ServerObservable extends java.util.Observable{
        
     }
 
-    
 
-
+    public void crash(int id) {
+        List<String> args = new ArrayList<>();
+        args.add("" + id);
+        Server.getPlayers().get(id).sendPacket(new Packet(Header.DIE_CRASH,args));
+    }
 }
